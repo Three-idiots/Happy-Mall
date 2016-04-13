@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cartfooterall"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:padding="0dp" >
+
+    <RelativeLayout
+        android:id="@+id/user_center_myorder3"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/wemall_shadow_four_edge"
+        android:clickable="true" >
+
+        <include layout="@layout/wemall_line_horizontal" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:text="备注信息:"
+            android:textColor="@color/black_444444"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/beizhu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="点我输入备注信息"
+            android:textColor="@color/black_444444"
+            android:textSize="15sp" >
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_center_myorder"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/wemall_shadow_four_edge"
+        android:clickable="false" >
+
+        <include layout="@layout/wemall_line_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:text="付款方式:"
+            android:textColor="@color/black_444444"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:clickable="true" >
+
+            <RadioGroup
+                android:id="@+id/paygroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/pay_ofline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25.0dip"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="1dp"
+                    android:button="@null"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/wemall_check_cart_draw"
+                    android:gravity="center_vertical"
+                    android:text="货到付款"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/pay_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25.0dip"
+                    android:layout_gravity="center_vertical|right"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/wemall_check_cart_draw"
+                    android:gravity="center_vertical"
+                    android:text="支付宝"
+                    android:textSize="15sp" />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="2.0"
+            android:background="@color/gray_999999"
+            android:orientation="horizontal"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="0dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="共:"
+                android:textColor="@color/gray"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="0"
+                android:textColor="@color/white_ffffff"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/summaryd"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="元"
+                android:textColor="@color/white_ffffff"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/wemall_background_green"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="确认下单"
+            android:textColor="@color/white_ffffff"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

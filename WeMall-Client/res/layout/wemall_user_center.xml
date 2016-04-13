@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/wemall_shadow_four_edge"
+            android:orientation="vertical" >
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/topuserinfo"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <cn.edu.zzu.wemall.ui.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/user_center_user_icon"
+                    android:layout_width="@dimen/wemall_user_center_user_icon_layout_width"
+                    android:layout_height="@dimen/wemall_user_center_user_icon_layout_height"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_marginTop="15.0dip"
+                    android:clickable="true"
+                    app:border_color="@color/gray_efefef"
+                    app:border_width="0dp" />
+
+                <View
+                    android:id="@+id/wemall_user_center_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.0dip"
+                    android:layout_alignTop="@id/user_center_user_icon"
+                    android:layout_marginTop="30.0dip" />
+
+                <TextView
+                    android:id="@+id/user_center_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/wemall_user_center_empty"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_toRightOf="@id/user_center_user_icon"
+                    android:text="@string/wemall_useraddress"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/user_center_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/user_center_address"
+                    android:layout_alignLeft="@+id/user_center_address"
+                    android:text="@string/wemall_usercentername"
+                    android:textColor="@color/black_444444"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6.0dip"
+            android:background="@drawable/wemall_shadow_four_edge"
+            android:orientation="vertical" >
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/user_center_myorder"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_user_center_change_password_icon"
+                    android:layout_width="33.0dip"
+                    android:layout_height="@dimen/wemall_user_center_icon_height"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/wemall_user_myorder" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25.0dip"
+                    android:layout_toRightOf="@id/wemall_user_center_change_password_icon"
+                    android:text="@string/wemall_ordercenter"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/wemall_user_center_wodeqianbao"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_user_center_manage_password_icon"
+                    android:layout_width="@dimen/wemall_user_center_icon_width"
+                    android:layout_height="@dimen/wemall_user_center_icon_height"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dip"
+                    android:background="@drawable/wemall_user_mypurse" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25.0dip"
+                    android:layout_toRightOf="@id/wemall_user_center_manage_password_icon"
+                    android:text="@string/wemall_usercenterpurse"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/wemall_user_center_changepasswd"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_user_center_download_record_icon"
+                    android:layout_width="@dimen/wemall_user_center_icon_width"
+                    android:layout_height="@dimen/wemall_user_center_icon_height"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dip"
+                    android:background="@drawable/wemall_user_changepasswd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25.0dip"
+                    android:layout_toRightOf="@id/wemall_user_center_download_record_icon"
+                    android:text="@string/wemall_usercenterchangepasswd"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/wemall_download_record_total_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="22.0dip"
+                    android:textColor="@color/green_56af43"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18.0dip"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/wemall_shadow_four_edge"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/user_logout"
+                android:layout_width="fill_parent"
+                android:layout_height="57.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <include layout="@layout/wemall_line_horizontal" />
+
+                <View
+                    android:id="@+id/wemall_user_login_img"
+                    android:layout_width="25.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="19.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:background="@drawable/wemall_user_logout_app" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/wemall_user_login_img"
+                    android:text="@string/wemall_usercenterlogout"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/wemall_login_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14.0dip"
+                    android:textColor="@color/green_56af43"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/user_center_clear"
+                android:layout_width="fill_parent"
+                android:layout_height="57.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_setting_img"
+                    android:layout_width="25.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="19.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:background="@drawable/wemall_user_cleaning_app" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/wemall_setting_img"
+                    android:text="@string/wemall_usercenterclean"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/usercenter_about"
+                android:layout_width="fill_parent"
+                android:layout_height="57.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_feedback_img"
+                    android:layout_width="25.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="19.0dip"
+                    android:layout_marginRight="16.0dip"
+                    android:background="@drawable/wemall_user_about_app" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/wemall_feedback_img"
+                    android:text="@string/wemall_about"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.edu.zzu.wemall"
+    android:versionCode="3"
+    android:versionName="1.2" 
+    android:hardwareAccelerated="true">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/wemall_app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="cn.edu.zzu.wemall.splash.SplashActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/wemall_app_name"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.splash.WelcomeMain"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/wemall_app_name"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.MainUIMain"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.About"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.UpdateAddress"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.Myorder"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.ChangePasswd"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.Regist"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.RecoveryPasswd"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.Gpl"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.ItemDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme_Animation_Activity_RightInRightOut" >
+        </activity>
+        <!-- ************************************************************************* -->
+        <!-- 以下为第三方信息，请注意填写 -->
+        <!-- 此处填写U盟的APPkey -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="546446affd98c5aee6003cd5" />
+        <!-- 此处填写高德地图的apikey -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="44ab6e6b57f17a1c1c32cff75dba5219" />
+
+        <!-- 001-SMS短信验证码 -->
+        <activity
+            android:name="cn.smssdk.SMSSDKUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 002-U盟分享组件 -->
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 003-微信分享 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 004-人人分享 -->
+        <activity
+            android:name="com.renn.rennsdk.oauth.OAuthActivity"
+            android:configChanges="orientation|navigation|keyboardHidden" />
+        <!-- 005-腾讯分享 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- 此处填写 tencent App Id -->
+                <data android:scheme="" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- ************************************************************************* -->
+    </application>
+
+</manifest>

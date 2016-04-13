@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gooditemdetails"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp" >
+
+    <RelativeLayout
+        android:id="@+id/title_layout_details"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/wemall_all_titlebar_height"
+        android:background="@color/wemall_all_titlebar_back" >
+
+        <LinearLayout
+            android:id="@+id/title_left_layout_details"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="70.0dip"
+            android:background="@drawable/wemall_background_back"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="4.0dip"
+            android:paddingRight="0dp" >
+
+            <ImageView
+                android:id="@+id/title_left_imagebutton_details"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:duplicateParentState="true"
+                android:paddingLeft="0dip"
+                android:paddingRight="0dip"
+                android:scaleType="center"
+                android:src="@drawable/wemall_back_btn" />
+
+            <TextView
+                android:id="@+id/title_text_details"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_margin="5.0dip"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:minWidth="30.0dip"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dip"
+                android:singleLine="true"
+                android:text="商品详情"
+                android:textColor="@color/white_ffffff"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/title_right_button_details"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/wemall_background_back"
+            android:contentDescription="@null"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:singleLine="true"
+            android:src="@drawable/wemall_share" />
+    </RelativeLayout>
+    <!-- 以上为Bar布局 -->
+    <!-- 以下为可滚动部分布局 -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_layout_details"
+        android:background="@color/white_ffffff" >
+
+        <RelativeLayout
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/detailimage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/wemall_picture_default" />
+
+            <RelativeLayout
+                android:id="@+id/detailsbar"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_alignBottom="@id/detailimage"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="0dp"
+                android:background="@color/wemall_detailsbar_back"
+                android:paddingBottom="0dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp" >
+
+                <TextView
+                    android:id="@+id/detaliesname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:paddingBottom="0dp"
+                    android:text="@string/wemall_item_name"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/detailspriced"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingBottom="2dp"
+                    android:text="@string/wemall_item_price_end2"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/detailsprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@id/detailspriced"
+                    android:paddingBottom="0dp"
+                    android:text="@string/wemall_item_price"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailimage"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/wemall_white_to_gray"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:minHeight="70dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp" >
+
+                    <include layout="@layout/wemall_line_horizontal" />
+
+                    <TextView
+                        android:id="@+id/intro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wemall_item_intro"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include layout="@layout/wemall_line_horizontal" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/numd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="数量:"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/itemadd"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/add" />
+
+                    <EditText
+                        android:id="@+id/itemnum"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/itemadd"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:inputType="number"
+                        android:numeric="integer"
+                        android:text="0"
+                        android:textSize="15sp" >
+                    </EditText>
+
+                    <Button
+                        android:id="@+id/itemcut"
+                        android:layout_width="35dp"
+                        android:padding="5dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/itemnum"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/cut"
+                       />
+                </RelativeLayout>
+
+                <include layout="@layout/wemall_line_horizontal" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/detailsfooter"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/gray_999999"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="2.0"
+            android:background="@color/gray_999999"
+            android:orientation="horizontal"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="0dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="共:"
+                android:textColor="@color/gray"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tiemsummary"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="0"
+                android:textColor="@color/white_ffffff"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="元"
+                android:textColor="@color/white_ffffff"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addtocart"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/wemall_background_green"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white_ffffff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/dgotocart"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/wemall_background_green"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="去购物车"
+            android:textColor="@color/white_ffffff"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</RelativeLayout>

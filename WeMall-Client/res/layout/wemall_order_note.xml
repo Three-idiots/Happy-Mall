@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="17.5dp"
+    android:layout_marginLeft="7.5dp"
+    android:layout_marginRight="7.5dp"
+    android:layout_marginTop="65.5dp"
+    android:background="@drawable/wemall_order_alertdialog_shape" >
+
+    <LinearLayout
+        android:id="@+id/notelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/wemall_shadow_four_edge"
+        android:orientation="vertical" >
+
+        <include layout="@layout/wemall_line_horizontal" />
+
+        <EditText
+            android:id="@+id/notedetails"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请输入订单备注信息......"
+            android:maxLength="100"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/noteclose"
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/wemall_white_to_gray"
+            android:clickable="true"
+            android:orientation="vertical" >
+
+            <include layout="@layout/wemall_line_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="提交备注"
+                android:textSize="18.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

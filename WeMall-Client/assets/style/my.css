@@ -1,0 +1,10 @@
+/*Edit By 幻舞奇影-2015-1-14*/
+body{background: #FFFFF;margin: 0px;padding: 0px}
+#title{width: 100%;font-size: 19px;text-align: center;padding-top:10px ;padding-bottom:10px}
+#content{padding-left: 8px;padding-right: 0px;font-size: 15px;color: #323232}
+#footer{margin-top:5px;margin-bottom: 10px;padding-left: 8px;padding-right: 0px;font-size: 15px;text-align:center;}
+a:link{text-decoration:none;color: #666666}
+a:hover{text-decoration:none;color: #666666}
+a:active{text-decoration:none;color: #666666}
+a:visited{text-decoration:none;color: #666666}
+p{padding-top: 0;padding-bottom: 0;margin-top: 7px;margin-bottom: 7px}

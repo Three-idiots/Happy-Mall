@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+     android:background="@drawable/wemall_shadow_four_edge"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <include layout="@layout/wemall_line_horizontal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_weight="4.88"
+        android:background="@drawable/wemall_white_to_gray" >
+
+        <TextView
+            android:id="@+id/dindanbianhao"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2.0dip"
+             android:gravity="center_vertical"
+            android:text="订单编号:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/orderid"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/dindanbianhao"
+             android:gravity="center_vertical"
+            android:text="201411202015479"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/zhifuzhuantai"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/orderid"
+            android:layout_marginTop="2.0dip"
+             android:gravity="center_vertical"
+            android:text="支付状态:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/paystate"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignBottom="@+id/zhifuzhuantai"
+            android:layout_toRightOf="@+id/zhifuzhuantai"
+             android:gravity="center_vertical"
+            android:text="货到付款"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/peisongzhuantai"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/zhifuzhuantai"
+             android:gravity="center_vertical"
+            android:layout_marginTop="2.0dip"
+            android:text="配送状态:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dispstate"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignBottom="@+id/peisongzhuantai"
+            android:layout_toRightOf="@+id/peisongzhuantai"
+             android:gravity="center_vertical"
+            android:text="配送中"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dingdanjine"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="2.0dip"
+        
+            android:text="订单金额:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/ordertotal"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+             android:gravity="center_vertical"
+            android:layout_alignBaseline="@id/dingdanjine"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/dingdanjine"
+            android:text="120"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dingdandanwei"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+             android:gravity="center_vertical"
+            android:layout_alignBaseline="@id/dingdanjine"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/ordertotal"
+            android:text="元"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+   
+
+</LinearLayout>

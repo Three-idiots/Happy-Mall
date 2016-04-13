@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="67.5dp"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="90dp" >
+
+        <FrameLayout
+            android:id="@+id/list_item_itemheader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/wemall_image_bg"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp" >
+
+            <ImageView
+                android:id="@+id/itemheader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="1dp"
+                android:contentDescription="@color/buttoncommon"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/wemall_picture_default" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp" >
+
+        <TextView
+            android:id="@+id/popitemt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2.0dip"
+            android:text="商品:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/cartitemname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt2"
+            android:text="红烧茄子"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemt5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2.0dip"
+            android:text="购买:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/cartitemnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/popitemt5"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt5"
+            android:text="120"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/popitemt5"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/cartitemnum"
+            android:text="份"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemt7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="2.0dip"
+            android:text="单价:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/cartitemprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/popitemt7"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt7"
+            android:text="120"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/cartitemt8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/cartitemprice"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/cartitemprice"
+            android:text="元"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</LinearLayout>

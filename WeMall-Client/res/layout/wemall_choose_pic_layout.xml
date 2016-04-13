@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110.0dip"
+    android:layout_marginLeft="20dip"
+    android:layout_marginRight="20dip"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:background="@drawable/wemall_alertdialog_shape"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/choose_from_camre"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@drawable/wemall_white_to_gray"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16.0dip"
+            android:src="@drawable/wemall_upload_from_camera" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10.0dip"
+            android:gravity="center"
+            android:text="拍照"
+            android:textSize="18.0sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/gray_efefef" />
+
+    <LinearLayout
+        android:id="@+id/choose_from_gallery"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:background="@drawable/wemall_white_to_gray"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16.0dip"
+            android:src="@drawable/wemall_upload_from_gallery" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10.0dip"
+            android:gravity="center"
+            android:text="从相册中选择"
+            android:textSize="18.0sp" />
+    </LinearLayout>
+
+</LinearLayout>
