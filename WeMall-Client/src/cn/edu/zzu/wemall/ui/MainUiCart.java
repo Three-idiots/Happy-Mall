@@ -176,6 +176,7 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 								.get("id").toString()));
 						InitCart();
 						dialog.dismiss();
+						
 
 					}
 				});
@@ -303,7 +304,15 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		// .show();
 		// } else if (state == 1) {
 		// state = -1;
-		wemalldb.clear_cart();
+		for(int i=0;i<cart.size();i++)
+		{
+			if(cart.get(i).get("isselect").equals("1"))
+			{
+				wemalldb.delete_cartitem(
+						Integer.parseInt(cart.get(i).get("id").toString()));
+			}
+		}
+		//wemalldb.clear_cart();
 		note.setText("");
 		InitCart();
 		cartBar.setVisibility(View.GONE);

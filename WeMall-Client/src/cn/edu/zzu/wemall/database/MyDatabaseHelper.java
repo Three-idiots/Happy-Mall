@@ -23,7 +23,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		String sql = "create table if not exists wemallcart (id int,name varchar(20),imgurl varchar(40),num int,price double,itemtotal double)";
+		String sql = "create table if not exists wemallcart (id int,name varchar(20),imgurl varchar(40),num int,price double,itemtotal double,isselect varchar(2))";
 		db.execSQL(sql);
 	}
 

@@ -30,7 +30,7 @@ public class SQLProcess {
 	 * 
 	 */
 	public void insert_to_cart(int id, String name, String imgurl, int num,
-			double price) {
+			double price,String isselect) {
 
 		Cursor cursor = db.query("wemallcart", new String[] { "id" }, "id=?",
 				new String[] { id + "" }, null, null, null);
@@ -42,11 +42,13 @@ public class SQLProcess {
 			values.put("num", num);
 			values.put("price", price);
 			values.put("itemtotal", price * num);
+			values.put("isselect", isselect);
 			db.insert("wemallcart", null, values);
 		} else {
 			ContentValues in = new ContentValues();
 			in.put("num", num);
 			in.put("itemtotal", price * num);
+			in.put("isselect", isselect);
 			db.update("wemallcart", in, "id=?", new String[] { id + "" });
 		}
 
@@ -80,7 +82,7 @@ public class SQLProcess {
 		HashMap<String, Object> data;
 		// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
 		Cursor cursor = db.query("wemallcart", new String[] { "id", "name",
-				"num", "price", "itemtotal" }, null, new String[] {}, null,
+				"num", "price", "itemtotal","isselect" }, null, new String[] {}, null,
 				null, null);
 		// 遍历每一个记录
 		while (cursor.moveToNext()) {
@@ -88,6 +90,7 @@ public class SQLProcess {
 			data.put("name", cursor.getString(cursor.getColumnIndex("name")));
 			data.put("num", cursor.getInt(2));
 			data.put("price", cursor.getDouble(3));
+			data.put("isselect", cursor.getString(5));
 			order.add(data);
 		}
 		return Utils.ArrayListToJsonString(order);
@@ -99,7 +102,7 @@ public class SQLProcess {
 		HashMap<String, Object> data;
 		// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
 		Cursor cursor = db.query("wemallcart", new String[] { "id", "name",
-				"imgurl", "num", "price", "itemtotal" }, null, new String[] {},
+				"imgurl", "num", "price", "itemtotal","isselect" }, null, new String[] {},
 				null, null, null);
 		// 遍历每一个记录
 		while (cursor.moveToNext()) {
@@ -110,6 +113,7 @@ public class SQLProcess {
 					cursor.getString(cursor.getColumnIndex("imgurl")));
 			data.put("num", cursor.getInt(3));
 			data.put("price", cursor.getDouble(4));
+			data.put("isselect", cursor.getString(6));
 			order.add(data);
 		}
 		return order;
@@ -144,5 +148,17 @@ public class SQLProcess {
 	public void close() {
 		db.close();
 		sqlHelper.close();
+	}
+	
+	/**
+	 * 更新购物车中商品选中状态
+	 * @param id
+	 * @param select
+	 */
+	public void updateSelect(int id,String select)
+	{
+		ContentValues in = new ContentValues();
+		in.put("isselect", select);
+		db.update("wemallcart", in, "id=?", new String[]{id+""});
 	}
 }

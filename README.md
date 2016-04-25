@@ -1,4 +1,4 @@
-﻿
+﻿#WeMall-Android
 
 包含SMSSDK/WeMall-Client/social_sdk_library_project三个项目以及Api目录下的client.php/update.xml接口文件,其中WeMall-Client依赖于项目SMSSDK、social_sdk_library_project
 
