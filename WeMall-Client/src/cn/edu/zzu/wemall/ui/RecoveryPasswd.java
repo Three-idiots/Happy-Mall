@@ -1,7 +1,5 @@
 package cn.edu.zzu.wemall.ui;
 
-import cn.edu.zzu.wemall.R;
-import cn.edu.zzu.wemall.net.NetUserRecovery;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -11,12 +9,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.edu.zzu.wemall.R;
+import cn.edu.zzu.wemall.net.NetUserRecovery;
 
 public class RecoveryPasswd extends Activity {
 	private EditText wemall_recoverypasswd_new, wemall_recoverypasswd_new_re;

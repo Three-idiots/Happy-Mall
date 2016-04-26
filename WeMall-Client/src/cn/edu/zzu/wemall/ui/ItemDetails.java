@@ -2,6 +2,15 @@ package cn.edu.zzu.wemall.ui;
 
 import java.text.DecimalFormat;
 
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,14 +28,6 @@ import cn.edu.zzu.wemall.config.MyConfig;
 import cn.edu.zzu.wemall.database.SQLProcess;
 import cn.edu.zzu.wemall.mylazylist.ImageLoader;
 import cn.edu.zzu.wemall.object.GoodsItem;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.media.QQShareContent;
-import com.umeng.socialize.media.QZoneShareContent;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
 
 /*
  * 
@@ -166,7 +167,7 @@ public class ItemDetails extends Activity implements OnClickListener {
 				Toast.makeText(this, num+"份"+goodname+"已加入购物车", Toast.LENGTH_SHORT)
 				.show();
 				wemalldb.insert_to_cart(goodid, goodname, goodimgurl, num,
-						goodprice,"1");
+						goodprice);
 			}
 			else{
 				//移除此商品

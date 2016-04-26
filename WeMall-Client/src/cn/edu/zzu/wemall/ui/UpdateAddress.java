@@ -1,13 +1,12 @@
 package cn.edu.zzu.wemall.ui;
 
 import java.net.URLEncoder;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-import cn.edu.zzu.wemall.R;
-import cn.edu.zzu.wemall.net.NetNewAddress;
-import cn.zzu.edu.wemall.utils.Utils;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -17,14 +16,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import cn.edu.zzu.wemall.R;
+import cn.edu.zzu.wemall.net.NetNewAddress;
+import cn.zzu.edu.wemall.utils.Utils;
 
 public class UpdateAddress extends Activity implements AMapLocationListener {
 	private ViewGroup backbar;

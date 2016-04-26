@@ -1,6 +1,5 @@
 package cn.edu.zzu.wemall.ui;
 
-import cn.edu.zzu.wemall.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
+import cn.edu.zzu.wemall.R;
 
 public class Gpl extends Activity {
 	private ViewGroup back;
