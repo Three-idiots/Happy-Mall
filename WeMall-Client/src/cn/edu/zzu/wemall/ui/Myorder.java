@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.zzu.wemall.R;
 import cn.edu.zzu.wemall.adapter.OrderAdapter;
@@ -61,7 +62,8 @@ public class Myorder extends Activity implements IXListViewListener {
 					long arg3) {
 				// 弹窗显示订单内容
 				orderitem(Utils.JsonStringToArrayList(adapter.getItem(
-						(PullRefresh == true) ? id - 1 : id).getCartdata()));
+						(PullRefresh == true) ? id - 1 : id).getCartdata()),adapter.getItem(
+								(PullRefresh == true) ? id - 1 : id).getNote());
 			}
 		});
 		this.backbar = (ViewGroup) findViewById(R.id.title_left_layout_myorder);
@@ -94,6 +96,10 @@ public class Myorder extends Activity implements IXListViewListener {
 				
 				allorders = NetOrdersData
 						.getData("uid=" + uid);
+				for(int i=0;i<allorders.size();i++)
+				{
+					System.out.println("wwf="+allorders.get(i).toString());
+				}
 				// 发送消息，唤醒主线程更新UI
 				handler.sendMessage(handler.obtainMessage(0x11039, ""));
 			}
@@ -153,7 +159,7 @@ public class Myorder extends Activity implements IXListViewListener {
 
 	// 弹窗
 
-	public void orderitem(ArrayList<HashMap<String, String>> data) {
+	public void orderitem(ArrayList<HashMap<String, String>> data,String note) {
 		//避免快速双击产生的重复弹窗问题
 		if (Utils.isFastDoubleClick()) {
 		        return;
@@ -168,6 +174,9 @@ public class Myorder extends Activity implements IXListViewListener {
 		OrderPopAdapter orderPopAdapter = new OrderPopAdapter(this, data);
 		popitemlist.setAdapter(orderPopAdapter);
 		ViewGroup exit = (ViewGroup) window.findViewById(R.id.exitdig);
+		TextView text_note=(TextView)window.findViewById(R.id.note);
+		if(!text_note.equals(""))
+			text_note.setText("备注：\n"+note);
 		exit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

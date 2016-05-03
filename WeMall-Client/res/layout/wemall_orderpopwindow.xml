@@ -14,7 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp" >
     </ListView>
-
+   
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/orderpoplist"
+        android:text="hahahahah"/>
+    
     <LinearLayout
         android:id="@+id/exitdig"
         android:layout_width="fill_parent"
@@ -35,5 +42,6 @@
             android:text="关闭窗口"
             android:textSize="18.0sp" />
     </LinearLayout>
+    
 
 </RelativeLayout>
