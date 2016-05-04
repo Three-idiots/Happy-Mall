@@ -1,8 +1,5 @@
 package cn.edu.zzu.wemall.ui;
 
-import cn.edu.zzu.wemall.R;
-import cn.edu.zzu.wemall.net.NetChangePasswd;
-import cn.edu.zzu.wemall.net.NetServerErr;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -12,14 +9,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.edu.zzu.wemall.R;
+import cn.edu.zzu.wemall.net.NetChangePasswd;
+import cn.edu.zzu.wemall.net.NetServerErr;
 
 public class ChangePasswd extends Activity {
 	private EditText wemall_changepasswd_old, wemall_changepasswd_new,

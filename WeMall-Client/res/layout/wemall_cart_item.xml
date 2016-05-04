@@ -2,14 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="67.5dp"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal" >
-    
-    <CheckBox 
-        android:id="@+id/cb_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-    
+
     <RelativeLayout
         android:layout_width="120dp"
         android:layout_height="90dp" >
@@ -75,16 +70,34 @@
             android:textColor="@color/gray_999999"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/cartitemnum"
+        <ImageView
+            android:id="@+id/cartitemnumcut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/popitemt5"
             android:layout_marginTop="2.0dip"
             android:layout_toRightOf="@id/popitemt5"
+            android:background="@drawable/cut" />
+
+        <TextView
+            android:id="@+id/cartitemnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/cartitemnumcut"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/cartitemnumcut"
             android:text="120"
             android:textColor="@color/red"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/cartitemnumadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/popitemt5"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/cartitemnum"
+            android:background="@drawable/add" />
 
         <TextView
             android:id="@+id/popitemt3"
@@ -92,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/popitemt5"
             android:layout_marginTop="2.0dip"
-            android:layout_toRightOf="@id/cartitemnum"
+            android:layout_toRightOf="@id/cartitemnumadd"
             android:text="份"
             android:textColor="@color/gray_999999"
             android:textSize="14sp" />
@@ -129,6 +142,15 @@
             android:text="元"
             android:textColor="@color/gray_999999"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/cartitemcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/cut" />
     </RelativeLayout>
 
 </LinearLayout>

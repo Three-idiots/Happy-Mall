@@ -29,11 +29,10 @@ public class SQLProcess {
 	 * 
 	 * 
 	 */
-	public void insert_to_cart(int id, String name, String imgurl, int num,
-			double price,String isselect) {
+	public void insert_to_cart(int id, String name, String imgurl, int num, double price) {
 
-		Cursor cursor = db.query("wemallcart", new String[] { "id" }, "id=?",
-				new String[] { id + "" }, null, null, null);
+		Cursor cursor = db.query("wemallcart", new String[] { "id" }, "id=?", new String[] { id + "" }, null, null,
+				null);
 		if (cursor.getCount() == 0) {
 			ContentValues values = new ContentValues();
 			values.put("id", id);
@@ -42,13 +41,11 @@ public class SQLProcess {
 			values.put("num", num);
 			values.put("price", price);
 			values.put("itemtotal", price * num);
-			values.put("isselect", isselect);
 			db.insert("wemallcart", null, values);
 		} else {
 			ContentValues in = new ContentValues();
 			in.put("num", num);
 			in.put("itemtotal", price * num);
-			in.put("isselect", isselect);
 			db.update("wemallcart", in, "id=?", new String[] { id + "" });
 		}
 
@@ -62,8 +59,8 @@ public class SQLProcess {
 	 */
 	public int read_cart_item_num(int id) {
 		int num = 0;
-		Cursor cursor = db.query("wemallcart", new String[] { "num" }, "id=?",
-				new String[] { id + "" }, null, null, null);
+		Cursor cursor = db.query("wemallcart", new String[] { "num" }, "id=?", new String[] { id + "" }, null, null,
+				null);
 		if (cursor.getCount() == 0) {
 			return num;
 		} else {
@@ -81,16 +78,14 @@ public class SQLProcess {
 		ArrayList<HashMap<String, Object>> order = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> data;
 		// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
-		Cursor cursor = db.query("wemallcart", new String[] { "id", "name",
-				"num", "price", "itemtotal","isselect" }, null, new String[] {}, null,
-				null, null);
+		Cursor cursor = db.query("wemallcart", new String[] { "id", "name", "num", "price", "itemtotal" }, null,
+				new String[] {}, null, null, null);
 		// 遍历每一个记录
 		while (cursor.moveToNext()) {
 			data = new HashMap<String, Object>();
 			data.put("name", cursor.getString(cursor.getColumnIndex("name")));
 			data.put("num", cursor.getInt(2));
 			data.put("price", cursor.getDouble(3));
-			data.put("isselect", cursor.getString(5));
 			order.add(data);
 		}
 		return Utils.ArrayListToJsonString(order);
@@ -101,19 +96,16 @@ public class SQLProcess {
 		ArrayList<HashMap<String, Object>> order = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> data;
 		// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
-		Cursor cursor = db.query("wemallcart", new String[] { "id", "name",
-				"imgurl", "num", "price", "itemtotal","isselect" }, null, new String[] {},
-				null, null, null);
+		Cursor cursor = db.query("wemallcart", new String[] { "id", "name", "imgurl", "num", "price", "itemtotal" },
+				null, new String[] {}, null, null, null);
 		// 遍历每一个记录
 		while (cursor.moveToNext()) {
 			data = new HashMap<String, Object>();
 			data.put("id", cursor.getInt(0));
 			data.put("name", cursor.getString(cursor.getColumnIndex("name")));
-			data.put("imgurl",
-					cursor.getString(cursor.getColumnIndex("imgurl")));
+			data.put("imgurl", cursor.getString(cursor.getColumnIndex("imgurl")));
 			data.put("num", cursor.getInt(3));
 			data.put("price", cursor.getDouble(4));
-			data.put("isselect", cursor.getString(6));
 			order.add(data);
 		}
 		return order;
@@ -123,8 +115,7 @@ public class SQLProcess {
 	public Double read_carttotal() {
 		double ordertotal = 0.0;
 		// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
-		Cursor cursor = db.query("wemallcart", new String[] { "itemtotal" },
-				null, new String[] {}, null, null, null);
+		Cursor cursor = db.query("wemallcart", new String[] { "itemtotal" }, null, new String[] {}, null, null, null);
 		// 遍历每一个记录
 		while (cursor.moveToNext()) {
 			ordertotal += cursor.getDouble(0);
@@ -132,6 +123,27 @@ public class SQLProcess {
 		return ordertotal;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	// 从数据库修改商品数量
+	public void update_cartitemGoodsnum(int id, int num) {
+		ContentValues values = new ContentValues();
+		values.put("num", num);
+		db.update("wemallcart", values, "id=?", new String[] { id + "" });
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	// 从数据库修改单类商品总价
+	public void update_cartitemGoodssum(int id, double itemtotal) {
+		ContentValues values = new ContentValues();
+		values.put("itemtotal", itemtotal);
+		db.update("wemallcart", values, "id=?", new String[] { id + "" });
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////
 	// 从数据库删除传入id的商品
 	public void delete_cartitem(int id) {
 		db.delete("wemallcart", "id=?", new String[] { id + "" });
@@ -148,17 +160,5 @@ public class SQLProcess {
 	public void close() {
 		db.close();
 		sqlHelper.close();
-	}
-	
-	/**
-	 * 更新购物车中商品选中状态
-	 * @param id
-	 * @param select
-	 */
-	public void updateSelect(int id,String select)
-	{
-		ContentValues in = new ContentValues();
-		in.put("isselect", select);
-		db.update("wemallcart", in, "id=?", new String[]{id+""});
 	}
 }

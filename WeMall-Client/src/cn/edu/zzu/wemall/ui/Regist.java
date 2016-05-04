@@ -1,8 +1,5 @@
 package cn.edu.zzu.wemall.ui;
 
-import cn.edu.zzu.wemall.R;
-import cn.edu.zzu.wemall.net.NetUserRegist;
-import cn.zzu.edu.wemall.utils.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +7,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.edu.zzu.wemall.R;
+import cn.edu.zzu.wemall.net.NetUserRegist;
+import cn.zzu.edu.wemall.utils.Utils;
 
 public class Regist extends Activity {
 	private ViewGroup backbar;

@@ -2,6 +2,7 @@ package cn.edu.zzu.wemall.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;

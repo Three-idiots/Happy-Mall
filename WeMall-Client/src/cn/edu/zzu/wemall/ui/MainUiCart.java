@@ -4,11 +4,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.view.FriendSelView;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -56,15 +60,13 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 	private SharedPreferences userinfo;
 	private ProgressBar cartBar;
 	private DecimalFormat df = new DecimalFormat(".#");
+	private ImageView cartitemcut;
 
 	@SuppressLint("InflateParams")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		view = LayoutInflater.from(getActivity()).inflate(
-				R.layout.wemall_tab_cart, null);
-		footerView = LayoutInflater.from(getActivity()).inflate(
-				R.layout.wemall_cart_footer, null);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		view = LayoutInflater.from(getActivity()).inflate(R.layout.wemall_tab_cart, null);
+		footerView = LayoutInflater.from(getActivity()).inflate(R.layout.wemall_cart_footer, null);
 		cartnogoods = (ViewGroup) view.findViewById(R.id.cartnogoods);
 		cartlist = (ViewGroup) view.findViewById(R.id.cartlist);
 		cartBar = (ProgressBar) view.findViewById(R.id.cartBar);
@@ -75,6 +77,7 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		gotoshop = (TextView) view.findViewById(R.id.gotoshop);
 		gotomyorder = (TextView) view.findViewById(R.id.gotomyorder);
 		summary = (TextView) footerView.findViewById(R.id.summary);
+
 		note.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -105,8 +108,7 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if (GetPreferencesUid().toString().equals("NULL")) {
-					Toast.makeText(getActivity(), "要先登录才能查看订单哦...",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "要先登录才能查看订单哦...", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				Intent intent = new Intent(getActivity(), Myorder.class);
@@ -132,27 +134,26 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		this.wemalldb = new SQLProcess(getActivity());
 		cart = wemalldb.read_cart();
 		this.userinfo = getActivity().getSharedPreferences("userinfo", 0);
+
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// 在此方法中给listview添加脚部元素///
 		super.onActivityCreated(savedInstanceState);
-		adapter = new CartAdapter(getActivity(), cart);
+		adapter = new CartAdapter(getActivity(), cart, MainUiCart.this);
 		setListAdapter(adapter);
+
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					final int id, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int id, long arg3) {
 				// 弹窗显示订单内容
 
-				final AlertDialog.Builder builder = new AlertDialog.Builder(
-						getActivity());
+				final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				final Dialog dialog = builder.show();
 				Window window = dialog.getWindow();
 				window.setContentView(R.layout.wemall_cart_dialog);
-				TextView cartcuttitle = (TextView) window
-						.findViewById(R.id.cartcuttitle);
+				TextView cartcuttitle = (TextView) window.findViewById(R.id.cartcuttitle);
 				cartcuttitle.setText(cart.get(id).get("name").toString());
 				TextView cartcan = (TextView) window.findViewById(R.id.cartcan);
 				cartcan.setOnClickListener(new OnClickListener() {
@@ -172,11 +173,9 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
 						// 确定
-						wemalldb.delete_cartitem(Integer.parseInt(cart.get(id)
-								.get("id").toString()));
+						wemalldb.delete_cartitem(Integer.parseInt(cart.get(id).get("id").toString()));
 						InitCart();
 						dialog.dismiss();
-						
 
 					}
 				});
@@ -230,8 +229,7 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		dlg.show();
 		window.setContentView(R.layout.wemall_order_note);
 		ViewGroup noteclose = (ViewGroup) window.findViewById(R.id.noteclose);
-		final EditText notedetails = (EditText) window
-				.findViewById(R.id.notedetails);
+		final EditText notedetails = (EditText) window.findViewById(R.id.notedetails);
 		noteclose.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -246,20 +244,18 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 
 	// 更新备注的方法
 	public void updatenote(String note) {
-		((MainUIMain)getActivity()).HideKeyboard();
+		((MainUIMain) getActivity()).HideKeyboard();
 		this.note.setText(note);
 	}
 
 	@SuppressLint("HandlerLeak")
 	public void submit() {
 		if (GetPreferencesUid().toString().equals("NULL")) {
-			Toast.makeText(getActivity(), "要先登录才能下单哦...", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(getActivity(), "要先登录才能下单哦...", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (paystyle == 1) {
-			Toast.makeText(getActivity(), "暂不提供在线支付,请选择货到付款",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "暂不提供在线支付,请选择货到付款", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		cartBar.setVisibility(View.VISIBLE);
@@ -267,12 +263,9 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 			public void run() {
 				try {
 
-					state = NetSubmitOrder.getData("uid=" + GetPreferencesUid()
-							+ "&totalprice="
-							+ df.format(wemalldb.read_carttotal())
-							+ "&paystyle=" + "货到付款" + "&paystatus=0" + "&note="
-							+ note.getText().toString() + "&cartdata="
-							+ wemalldb.read_cartdatails());
+					state = NetSubmitOrder.getData("uid=" + GetPreferencesUid() + "&totalprice="
+							+ df.format(wemalldb.read_carttotal()) + "&paystyle=" + "货到付款" + "&paystatus=0" + "&note="
+							+ note.getText().toString() + "&cartdata=" + wemalldb.read_cartdatails());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -304,15 +297,7 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		// .show();
 		// } else if (state == 1) {
 		// state = -1;
-		for(int i=0;i<cart.size();i++)
-		{
-			if(cart.get(i).get("isselect").equals("1"))
-			{
-				wemalldb.delete_cartitem(
-						Integer.parseInt(cart.get(i).get("id").toString()));
-			}
-		}
-		//wemalldb.clear_cart();
+		wemalldb.clear_cart();
 		note.setText("");
 		InitCart();
 		cartBar.setVisibility(View.GONE);
