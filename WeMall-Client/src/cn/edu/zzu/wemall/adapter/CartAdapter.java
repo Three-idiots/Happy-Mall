@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,11 +22,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.edu.zzu.wemall.R;
 import cn.edu.zzu.wemall.config.MyConfig;
 import cn.edu.zzu.wemall.database.SQLProcess;
 import cn.edu.zzu.wemall.mylazylist.ImageLoader;
-import cn.edu.zzu.wemall.ui.MainUiCart;
 
 public class CartAdapter extends BaseAdapter {
 	/**
@@ -96,7 +95,7 @@ public class CartAdapter extends BaseAdapter {
 		cartitemnumcut = (ImageView) vi.findViewById(R.id.cartitemnumcut);
 		cartitemnumadd = (ImageView) vi.findViewById(R.id.cartitemnumadd);
 		cartitemcut = (ImageView) vi.findViewById(R.id.cartitemcut);
-		cartitemselect=(CheckBox) vi.findViewById(R.id.cb_select);
+		cartitemselect = (CheckBox) vi.findViewById(R.id.cb_select);
 
 		view = (View) activity.findViewById(R.layout.wemall_tab_cart);
 		cartlist = (ViewGroup) activity.findViewById(R.id.cartlist);
@@ -117,26 +116,20 @@ public class CartAdapter extends BaseAdapter {
 		cartitemnum.setText(cartitem.get("num").toString());
 		cartitemprice.setText(cartitem.get("price").toString());
 		final int id;
-		id=Integer.parseInt(cartitem.get("id").toString());
-		if(cartitem.get("isselect").toString().equals("1"))
-		{
+		id = Integer.parseInt(cartitem.get("id").toString());
+		if (cartitem.get("isselect").toString().equals("1")) {
 			cartitemselect.setChecked(true);
-		}
-		else
-		{
+		} else {
 			cartitemselect.setChecked(false);
 		}
-		cartitemselect.setOnCheckedChangeListener(new OnCheckedChangeListener() {			
+		cartitemselect.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
-				System.out.println("wwf"+id);
-				if(isChecked)
-				{
+				System.out.println("wwf" + id);
+				if (isChecked) {
 					wemalldb.updateSelect(id, "1");
-				}
-				else
-				{
+				} else {
 					wemalldb.updateSelect(id, "0");
 				}
 			}
@@ -162,9 +155,9 @@ public class CartAdapter extends BaseAdapter {
 			switch (v.getId()) {
 			case R.id.cartitemnumcut:
 				num = Integer.parseInt(data.get(cartposition).get("num").toString());
-				if (num == 0) {
-
-				} else if (num > 0) {
+				if (num == 1) {
+					Toast.makeText(activity, "请按删除按钮", Toast.LENGTH_SHORT).show();
+				} else if (num > 1) {
 					data.get(cartposition).put("num", --num);
 					notifyDataSetChanged();
 				}
