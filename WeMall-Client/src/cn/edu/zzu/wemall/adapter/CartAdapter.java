@@ -18,6 +18,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.edu.zzu.wemall.R;
@@ -50,6 +53,7 @@ public class CartAdapter extends BaseAdapter {
 	private View vi;
 	private ImageLoader imageLoader;
 	private int num = 0;
+	private CheckBox cartitemselect;
 
 	public CartAdapter(Activity a, ArrayList<HashMap<String, Object>> d, ListFragment l) {
 		this.activity = a;
@@ -92,6 +96,7 @@ public class CartAdapter extends BaseAdapter {
 		cartitemnumcut = (ImageView) vi.findViewById(R.id.cartitemnumcut);
 		cartitemnumadd = (ImageView) vi.findViewById(R.id.cartitemnumadd);
 		cartitemcut = (ImageView) vi.findViewById(R.id.cartitemcut);
+		cartitemselect=(CheckBox) vi.findViewById(R.id.cb_select);
 
 		view = (View) activity.findViewById(R.layout.wemall_tab_cart);
 		cartlist = (ViewGroup) activity.findViewById(R.id.cartlist);
@@ -111,6 +116,31 @@ public class CartAdapter extends BaseAdapter {
 		cartitemname.setText(cartitem.get("name").toString());
 		cartitemnum.setText(cartitem.get("num").toString());
 		cartitemprice.setText(cartitem.get("price").toString());
+		final int id;
+		id=Integer.parseInt(cartitem.get("id").toString());
+		if(cartitem.get("isselect").toString().equals("1"))
+		{
+			cartitemselect.setChecked(true);
+		}
+		else
+		{
+			cartitemselect.setChecked(false);
+		}
+		cartitemselect.setOnCheckedChangeListener(new OnCheckedChangeListener() {			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				System.out.println("wwf"+id);
+				if(isChecked)
+				{
+					wemalldb.updateSelect(id, "1");
+				}
+				else
+				{
+					wemalldb.updateSelect(id, "0");
+				}
+			}
+		});
 		imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Public/Uploads/" + cartitem.get("imgurl"), itemheader);
 		return vi;
 

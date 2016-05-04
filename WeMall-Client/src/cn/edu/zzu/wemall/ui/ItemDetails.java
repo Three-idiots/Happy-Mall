@@ -167,7 +167,7 @@ public class ItemDetails extends Activity implements OnClickListener {
 				Toast.makeText(this, num+"份"+goodname+"已加入购物车", Toast.LENGTH_SHORT)
 				.show();
 				wemalldb.insert_to_cart(goodid, goodname, goodimgurl, num,
-						goodprice);
+						goodprice,"1");
 			}
 			else{
 				//移除此商品

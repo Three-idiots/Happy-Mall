@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -297,7 +296,14 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		// .show();
 		// } else if (state == 1) {
 		// state = -1;
-		wemalldb.clear_cart();
+		for(int i=0;i<cart.size();i++)
+		{
+			if(cart.get(i).get("isselect").equals("1"))
+			{
+				wemalldb.delete_cartitem(
+						Integer.parseInt(cart.get(i).get("id").toString()));
+			}
+		}
 		note.setText("");
 		InitCart();
 		cartBar.setVisibility(View.GONE);
