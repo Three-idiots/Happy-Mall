@@ -142,45 +142,6 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		adapter = new CartAdapter(getActivity(), cart, MainUiCart.this);
 		setListAdapter(adapter);
 
-		getListView().setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, final int id, long arg3) {
-				// 弹窗显示订单内容
-
-				final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-				final Dialog dialog = builder.show();
-				Window window = dialog.getWindow();
-				window.setContentView(R.layout.wemall_cart_dialog);
-				TextView cartcuttitle = (TextView) window.findViewById(R.id.cartcuttitle);
-				cartcuttitle.setText(cart.get(id).get("name").toString());
-				TextView cartcan = (TextView) window.findViewById(R.id.cartcan);
-				cartcan.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-
-						dialog.dismiss();
-
-					}
-				});
-				TextView cartcut = (TextView) window.findViewById(R.id.cartcut);
-				cartcut.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						// 确定
-						wemalldb.delete_cartitem(Integer.parseInt(cart.get(id).get("id").toString()));
-						InitCart();
-						dialog.dismiss();
-
-					}
-				});
-
-			}
-		});
 		InitCart();
 	}
 

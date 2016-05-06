@@ -36,6 +36,7 @@ public class CartAdapter extends BaseAdapter {
 	 * 
 	 */
 	private View footerView, view;
+	private View vi;
 	private TextView summary;
 	private SQLProcess wemalldb;
 	private DecimalFormat df = new DecimalFormat(".#");
@@ -47,12 +48,10 @@ public class CartAdapter extends BaseAdapter {
 	private ArrayList<HashMap<String, Object>> data;
 	private HashMap<String, Object> cartitem;
 	private LayoutInflater inflater = null;
-	private ImageView itemheader, cartitemnumcut, cartitemnumadd, cartitemcut;
-	private TextView cartitemname, cartitemnum, cartitemprice;
-	private View vi;
 	private ImageLoader imageLoader;
+	
 	private int num = 0;
-	private CheckBox cartitemselect;
+	
 
 	public CartAdapter(Activity a, ArrayList<HashMap<String, Object>> d, ListFragment l) {
 		this.activity = a;
@@ -82,20 +81,22 @@ public class CartAdapter extends BaseAdapter {
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
 		cartitem = data.get(position);
 		vi = convertView;
 		CartitemListener cartitemListener = null;
 		if (vi == null) {
 			vi = inflater.inflate(R.layout.wemall_cart_item, null);
 		}
-		itemheader = (ImageView) vi.findViewById(R.id.itemheader);
-		cartitemname = (TextView) vi.findViewById(R.id.cartitemname);
-		cartitemnum = (TextView) vi.findViewById(R.id.cartitemnum);
-		cartitemprice = (TextView) vi.findViewById(R.id.cartitemprice);
-		cartitemnumcut = (ImageView) vi.findViewById(R.id.cartitemnumcut);
-		cartitemnumadd = (ImageView) vi.findViewById(R.id.cartitemnumadd);
-		cartitemcut = (ImageView) vi.findViewById(R.id.cartitemcut);
-		cartitemselect = (CheckBox) vi.findViewById(R.id.cb_select);
+		holder=new ViewHolder();
+		holder.itemheader = (ImageView) vi.findViewById(R.id.itemheader);
+		holder.cartitemname = (TextView) vi.findViewById(R.id.cartitemname);
+		holder.cartitemnum = (TextView) vi.findViewById(R.id.cartitemnum);
+		holder.cartitemprice = (TextView) vi.findViewById(R.id.cartitemprice);
+		holder.cartitemnumcut = (ImageView) vi.findViewById(R.id.cartitemnumcut);
+		holder.cartitemnumadd = (ImageView) vi.findViewById(R.id.cartitemnumadd);
+		holder.cartitemcut = (ImageView) vi.findViewById(R.id.cartitemcut);
+		holder.cartitemselect = (CheckBox) vi.findViewById(R.id.cb_select);
 
 		view = (View) activity.findViewById(R.layout.wemall_tab_cart);
 		cartlist = (ViewGroup) activity.findViewById(R.id.cartlist);
@@ -107,22 +108,22 @@ public class CartAdapter extends BaseAdapter {
 		cart = wemalldb.read_cart();
 		adapter = new CartAdapter(activity, cart, listFragment);
 
-		cartitemListener = new CartitemListener(position);
-		cartitemnumcut.setOnClickListener(cartitemListener);
-		cartitemnumadd.setOnClickListener(cartitemListener);
-		cartitemcut.setOnClickListener(cartitemListener);
+		cartitemListener = new CartitemListener(position,holder);
+		holder.cartitemnumcut.setOnClickListener(cartitemListener);
+		holder.cartitemnumadd.setOnClickListener(cartitemListener);
+		holder.cartitemcut.setOnClickListener(cartitemListener);
 
-		cartitemname.setText(cartitem.get("name").toString());
-		cartitemnum.setText(cartitem.get("num").toString());
-		cartitemprice.setText(cartitem.get("price").toString());
+		holder.cartitemname.setText(cartitem.get("name").toString());
+		holder.cartitemnum.setText(cartitem.get("num").toString());
+		holder.cartitemprice.setText(cartitem.get("price").toString());
 		final int id;
 		id = Integer.parseInt(cartitem.get("id").toString());
 		if (cartitem.get("isselect").toString().equals("1")) {
-			cartitemselect.setChecked(true);
+			holder.cartitemselect.setChecked(true);
 		} else {
-			cartitemselect.setChecked(false);
+			holder.cartitemselect.setChecked(false);
 		}
-		cartitemselect.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		holder.cartitemselect.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
@@ -134,7 +135,7 @@ public class CartAdapter extends BaseAdapter {
 				}
 			}
 		});
-		imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Public/Uploads/" + cartitem.get("imgurl"), itemheader);
+		imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Public/Uploads/" + cartitem.get("imgurl"), holder.itemheader);
 		return vi;
 
 	}
@@ -143,10 +144,12 @@ public class CartAdapter extends BaseAdapter {
 	public class CartitemListener implements OnClickListener {
 
 		int cartposition;
+		ViewHolder cartholder;
 
-		public CartitemListener(int inposition) {
+		public CartitemListener(int inposition,ViewHolder holder) {
 			// TODO Auto-generated constructor stub
 			cartposition = inposition;
+			cartholder=holder;
 		}
 
 		@Override
@@ -155,18 +158,19 @@ public class CartAdapter extends BaseAdapter {
 			switch (v.getId()) {
 			case R.id.cartitemnumcut:
 				num = Integer.parseInt(data.get(cartposition).get("num").toString());
+				
 				if (num == 1) {
 					Toast.makeText(activity, "请按删除按钮", Toast.LENGTH_SHORT).show();
 				} else if (num > 1) {
 					data.get(cartposition).put("num", --num);
-					notifyDataSetChanged();
+					cartholder.cartitemnum.setText(data.get(cartposition).get("num").toString());		
 				}
 				updatedate(cartposition);
 				break;
 			case R.id.cartitemnumadd:
 				num = Integer.parseInt(data.get(cartposition).get("num").toString());
 				data.get(cartposition).put("num", ++num);
-				notifyDataSetChanged();
+				cartholder.cartitemnum.setText(data.get(cartposition).get("num").toString());
 				updatedate(cartposition);
 				break;
 			case R.id.cartitemcut:
@@ -250,5 +254,11 @@ public class CartAdapter extends BaseAdapter {
 		listFragment.setListAdapter(adapter);// 不添加本代码,部分机型的footerview不显示
 		adapter.set_datasource(cart);
 		adapter.notifyDataSetChanged();
+	}
+	public final class ViewHolder{
+		public ImageView itemheader, cartitemnumcut, cartitemnumadd, cartitemcut;
+		public  TextView cartitemname, cartitemnum, cartitemprice;
+		public CheckBox cartitemselect;
+		
 	}
 }
