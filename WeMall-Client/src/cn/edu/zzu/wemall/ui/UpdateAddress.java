@@ -1,30 +1,47 @@
 package cn.edu.zzu.wemall.ui;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 
+import android.R.layout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.zzu.wemall.R;
+import cn.edu.zzu.wemall.database.DataBaseHelp;
+import cn.edu.zzu.wemall.database.OperateTable;
 import cn.edu.zzu.wemall.net.NetNewAddress;
 import cn.zzu.edu.wemall.utils.Utils;
 
@@ -41,6 +58,16 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	private String netaddress = null; // 通过高德地图接口定位获取当前地址...么么哒
 	private LocationManagerProxy mLocationManagerProxy;
 	private ImageView netaddressbutton;
+	private ImageView addaddressbutton;
+	private DataBaseHelp openhelper;
+	private static final String TABLENAME_address = "address";
+	private SQLiteDatabase db;
+	private ArrayList<String> address_list;
+	private OperateTable mytable;
+	private Handler myhandler;
+	private ListView addaddresslist;
+	private DataBaseHelp helper;
+	private List<String> address;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +80,10 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		initnetaddress();
 		addressbutton = (ViewGroup) findViewById(R.id.title_right_layout_newadd);
 		this.backbar = (ViewGroup) findViewById(R.id.title_left_layout_newadd);
+		// 添加多个收货地址
+		addaddressbutton = (ImageView) findViewById(R.id.addaddressbutton);
+		addaddresslist = (ListView) findViewById(R.id.addaddresslist);
+
 		netaddressbutton = (ImageView) findViewById(R.id.netaddressbutton);
 		netaddressbutton.setOnClickListener(new OnClickListener() {
 
@@ -60,8 +91,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 			public void onClick(View arg0) {
 				// 判断,如果系统没有在启动activity时获取到地址,就尝试手动获取,并修改手动获取标志为真,如果已经获取到,则覆盖到输入框
 				if (netaddress == null) {
-					Toast.makeText(UpdateAddress.this, "正在获取地址,请稍候...",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(UpdateAddress.this, "正在获取地址,请稍候...", Toast.LENGTH_SHORT).show();
 					manual = true;
 					initnetaddress();
 				} else {
@@ -74,10 +104,8 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 
 			@Override
 			public void onClick(View arg0) {
-				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-						.hideSoftInputFromWindow(UpdateAddress.this
-								.getCurrentFocus().getWindowToken(),
-								InputMethodManager.HIDE_NOT_ALWAYS);
+				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+						UpdateAddress.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 				NewaddressCheck();
 
 			}
@@ -87,10 +115,144 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 			public void onClick(View arg0) {
 				finish();
 				// 定义退出当前Activity的动画
-				overridePendingTransition(R.anim.wemall_slide_in_left,
-						R.anim.wemall_slide_out_right);
+				overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
 			}
 		});
+		// 添加多个收货地址点击事件
+		initaddress();
+		addaddressbutton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				addaddress();
+				initaddress();
+			}
+		});
+	}
+
+	// 判断添加的地址标签的同名字段，和数据库操作
+	public void addaddress() {
+		String address_name = newaddress.getText().toString();
+		if (!address_name.equals("")) {
+			String sql = "SELECT address_name FROM " + TABLENAME_address + " WHERE address_name= '" + address_name
+					+ "'";
+			this.openhelper = new DataBaseHelp(UpdateAddress.this);
+			db = UpdateAddress.this.openhelper.getReadableDatabase();
+			OperateTable mytable = new OperateTable(db);
+			Cursor resul_find = this.db.rawQuery(sql, null);
+			if (!resul_find.isAfterLast()) {
+				Toast.makeText(UpdateAddress.this, "地址标签已存在", Toast.LENGTH_SHORT).show();
+				this.db.close();
+			} else
+				mytable.insert_his(address_name);
+		} else {
+			Toast.makeText(UpdateAddress.this, "请输入你要添加的地址标签", 0).show();
+		}
+
+	}
+
+	// 界面初始从数据加载地址标签
+	public void initaddress() {
+		address_list = new ArrayList<String>();
+		new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				address_list = (ArrayList<String>) update_address();
+				if (!address_list.isEmpty())
+					Log.i("i", address_list.get(0).toString());
+				Message address_message = myhandler.obtainMessage();
+				address_message.obj = address_list;
+				myhandler.sendMessage(address_message);
+			}
+
+		}.start();
+		;
+		myhandler = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				address = (List<String>) msg.obj;
+				TextView headView = new TextView(UpdateAddress.this);
+				ArrayAdapter<String> myadapter = new ArrayAdapter<String>(UpdateAddress.this,
+						android.R.layout.simple_list_item_1, address);
+				myadapter.notifyDataSetChanged();
+				addaddresslist.setAdapter(myadapter);
+				addaddresslist.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						// TODO Auto-generated method stub
+						ListView list = (ListView) parent;
+						newaddress.setText(list.getItemAtPosition(position).toString());
+					}
+
+				});
+
+				// 长按删除
+				addaddresslist.setOnItemLongClickListener(new butAlertImpl());
+
+			}
+		};
+	}
+
+	// 长按删除地址标签
+	private class butAlertImpl implements OnItemLongClickListener {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
+			// TODO Auto-generated method stub
+			final ListView listView = (ListView) parent;
+			final String info = listView.getItemAtPosition(position).toString();
+			Dialog dialog = new AlertDialog.Builder(UpdateAddress.this).setIcon(R.drawable.warning).setTitle("确定删除？")
+					.setMessage("您确定要删除" + info + "？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							ArrayAdapter<String> myadapter = new ArrayAdapter<String>(UpdateAddress.this,
+									android.R.layout.simple_list_item_1, address);
+							address.remove(position);
+							myadapter.notifyDataSetChanged();
+							// 数据更新后要重新刷新adapter 不然会出错
+							listView.setAdapter(myadapter);
+
+							helper = new DataBaseHelp(UpdateAddress.this);
+							mytable = new OperateTable(UpdateAddress.this.helper.getWritableDatabase());
+							mytable.delete_his(info);
+
+							// removeLineFromFile(FILENAME, info);
+							Toast.makeText(UpdateAddress.this, info, 0).show();
+						}
+
+					}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+
+						}
+					}).create();
+			dialog.show();
+			return false;
+		}
+	}
+
+	//
+	public List<String> update_address() {
+		List<String> all = new ArrayList<String>();
+		String sql = "SELECT address_name FROM " + TABLENAME_address;
+		this.openhelper = new DataBaseHelp(UpdateAddress.this);
+		db = UpdateAddress.this.openhelper.getReadableDatabase();
+		Cursor result = this.db.rawQuery(sql, null);
+		for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
+			all.add(result.getString(0));
+		}
+		this.db.close();
+		return all;
+
 	}
 
 	public void NewaddressCheck() {
@@ -110,11 +272,8 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 			@SuppressWarnings("deprecation")
 			public void run() {
 				// xmlwebData解析网络中xml中的数据
-				state = NetNewAddress.getData("uid="
-						+ uid
-						+ "&address="
-						+ URLEncoder.encode(Utils.getBASE64(newaddress
-								.getText().toString())));
+				state = NetNewAddress.getData("uid=" + uid + "&address="
+						+ URLEncoder.encode(Utils.getBASE64(newaddress.getText().toString())));
 				// 发送消息，并把persons结合对象传递过去
 				handler.sendEmptyMessage(0x22199);
 			}
@@ -164,8 +323,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		Toast.makeText(this, "更新地址成功", Toast.LENGTH_LONG).show();
 		finish();
 		// 定义退出当前Activity的动画
-		overridePendingTransition(R.anim.wemall_slide_in_left,
-				R.anim.wemall_slide_out_right);
+		overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
 	}
 
 	private void initnetaddress() {
@@ -177,8 +335,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		// 在定位结束后，在合适的生命周期调用destroy()方法
 		// 其中如果间隔时间为-1，则定位只定一次,
 		// 在单次定位情况下，定位无论成功与否，都无需调用removeUpdates()方法移除请求，定位sdk内部会移除
-		mLocationManagerProxy.requestLocationData(
-				LocationProviderProxy.AMapNetwork, -1, 15, this);
+		mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
 
 	}
 
@@ -208,13 +365,11 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 
 	@Override
 	public void onLocationChanged(AMapLocation amapLocation) {
-		if (amapLocation != null
-				&& amapLocation.getAMapException().getErrorCode() != 0) {
+		if (amapLocation != null && amapLocation.getAMapException().getErrorCode() != 0) {
 			// 获取网络地址失败
 		}
 
-		if (amapLocation != null
-				&& amapLocation.getAMapException().getErrorCode() == 0) {
+		if (amapLocation != null && amapLocation.getAMapException().getErrorCode() == 0) {
 			// 定位成功回调信息，设置相关消息
 			if (amapLocation.getProvince() == null) {
 				// 地址信息为空....
@@ -222,12 +377,10 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 				// 将网络地址赋予变量,以供需要时使用
 				if (manual == true) {
 					// 注意去除高德返回的地址中的不确定因素
-					this.netaddress = (amapLocation.getAddress()).replaceAll(
-							"靠近", "");
+					this.netaddress = (amapLocation.getAddress()).replaceAll("靠近", "");
 					newaddress.setText(netaddress);
 				} else {
-					this.netaddress = (amapLocation.getAddress()).replaceAll(
-							"靠近", "");
+					this.netaddress = (amapLocation.getAddress()).replaceAll("靠近", "");
 				}
 			}
 
@@ -253,8 +406,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	public void onBackPressed() {
 		this.finish();
 		// 定义退出当前Activity的动画
-		overridePendingTransition(R.anim.wemall_slide_in_left,
-				R.anim.wemall_slide_out_right);
+		overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
 	}
 
 }

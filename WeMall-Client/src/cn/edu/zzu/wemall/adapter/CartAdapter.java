@@ -49,9 +49,8 @@ public class CartAdapter extends BaseAdapter {
 	private HashMap<String, Object> cartitem;
 	private LayoutInflater inflater = null;
 	private ImageLoader imageLoader;
-	
+
 	private int num = 0;
-	
 
 	public CartAdapter(Activity a, ArrayList<HashMap<String, Object>> d, ListFragment l) {
 		this.activity = a;
@@ -88,7 +87,7 @@ public class CartAdapter extends BaseAdapter {
 		if (vi == null) {
 			vi = inflater.inflate(R.layout.wemall_cart_item, null);
 		}
-		holder=new ViewHolder();
+		holder = new ViewHolder();
 		holder.itemheader = (ImageView) vi.findViewById(R.id.itemheader);
 		holder.cartitemname = (TextView) vi.findViewById(R.id.cartitemname);
 		holder.cartitemnum = (TextView) vi.findViewById(R.id.cartitemnum);
@@ -108,7 +107,7 @@ public class CartAdapter extends BaseAdapter {
 		cart = wemalldb.read_cart();
 		adapter = new CartAdapter(activity, cart, listFragment);
 
-		cartitemListener = new CartitemListener(position,holder);
+		cartitemListener = new CartitemListener(position, holder);
 		holder.cartitemnumcut.setOnClickListener(cartitemListener);
 		holder.cartitemnumadd.setOnClickListener(cartitemListener);
 		holder.cartitemcut.setOnClickListener(cartitemListener);
@@ -135,7 +134,8 @@ public class CartAdapter extends BaseAdapter {
 				}
 			}
 		});
-		imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Public/Uploads/" + cartitem.get("imgurl"), holder.itemheader);
+		imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Public/Uploads/" + cartitem.get("imgurl"),
+				holder.itemheader);
 		return vi;
 
 	}
@@ -146,10 +146,10 @@ public class CartAdapter extends BaseAdapter {
 		int cartposition;
 		ViewHolder cartholder;
 
-		public CartitemListener(int inposition,ViewHolder holder) {
+		public CartitemListener(int inposition, ViewHolder holder) {
 			// TODO Auto-generated constructor stub
 			cartposition = inposition;
-			cartholder=holder;
+			cartholder = holder;
 		}
 
 		@Override
@@ -158,12 +158,12 @@ public class CartAdapter extends BaseAdapter {
 			switch (v.getId()) {
 			case R.id.cartitemnumcut:
 				num = Integer.parseInt(data.get(cartposition).get("num").toString());
-				
+
 				if (num == 1) {
 					Toast.makeText(activity, "请按删除按钮", Toast.LENGTH_SHORT).show();
 				} else if (num > 1) {
 					data.get(cartposition).put("num", --num);
-					cartholder.cartitemnum.setText(data.get(cartposition).get("num").toString());		
+					cartholder.cartitemnum.setText(data.get(cartposition).get("num").toString());
 				}
 				updatedate(cartposition);
 				break;
@@ -255,10 +255,11 @@ public class CartAdapter extends BaseAdapter {
 		adapter.set_datasource(cart);
 		adapter.notifyDataSetChanged();
 	}
-	public final class ViewHolder{
+
+	public final class ViewHolder {
 		public ImageView itemheader, cartitemnumcut, cartitemnumadd, cartitemcut;
-		public  TextView cartitemname, cartitemnum, cartitemprice;
+		public TextView cartitemname, cartitemnum, cartitemprice;
 		public CheckBox cartitemselect;
-		
+
 	}
 }

@@ -125,9 +125,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/addresslayout"
-        android:padding="10dp"
         android:layout_alignParentRight="true"
         android:clickable="true"
+        android:padding="10dp"
         android:src="@drawable/wemall_icon_location" />
+
+    <ImageView
+        android:id="@+id/addaddressbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/addresslayout"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        android:padding="15dp"
+        android:src="@drawable/add_address" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/netaddressbutton"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/wemall_shadow_four_edge"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="地址标签" 
+            android:textSize="15sp"/>
+
+        <ListView
+            android:id="@+id/addaddresslist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
 
 </RelativeLayout>
