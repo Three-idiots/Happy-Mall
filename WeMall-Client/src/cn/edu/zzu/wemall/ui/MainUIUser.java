@@ -57,9 +57,8 @@ import com.umeng.analytics.MobclickAgent;
 public class MainUIUser extends Fragment implements OnClickListener {
 
 	private View view;
-	private ViewGroup user_login_layout, user_center_layout, user_logout,
-			usercenter_about, user_center_myorder, user_center_claer,
-			user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo;
+	private ViewGroup user_login_layout, user_center_layout, user_logout, usercenter_about, user_center_myorder,
+			user_center_claer, user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo;
 	private ProgressBar loginBar;
 	private TextView login, regist, wemall_forget_password;
 	private EditText account, passwd;
@@ -81,8 +80,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 	@SuppressLint("InflateParams")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		view = inflater.inflate(R.layout.wemall_tab_user, null);
 		imageLoader = new ImageLoader(getActivity());
@@ -90,23 +88,18 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		login = (TextView) view.findViewById(R.id.wemall_login_button);
 		account = (EditText) view.findViewById(R.id.wemall_login_account);
 		passwd = (EditText) view.findViewById(R.id.wemall_login_passwd);
-		wemall_forget_password = (TextView) view
-				.findViewById(R.id.wemall_forget_password);
+		wemall_forget_password = (TextView) view.findViewById(R.id.wemall_forget_password);
 		topuserinfo = (ViewGroup) view.findViewById(R.id.topuserinfo);
 		topuserinfo.setOnClickListener(this);
 		wemall_forget_password.setOnClickListener(this);
-		user_center_claer = (ViewGroup) view
-				.findViewById(R.id.user_center_clear);
+		user_center_claer = (ViewGroup) view.findViewById(R.id.user_center_clear);
 		user_center_claer.setOnClickListener(this);
 		user_login_layout = (ViewGroup) view.findViewById(R.id.userloginlayout);
-		user_center_myorder = (ViewGroup) view
-				.findViewById(R.id.user_center_myorder);
+		user_center_myorder = (ViewGroup) view.findViewById(R.id.user_center_myorder);
 		user_center_myorder.setOnClickListener(this);
-		wemall_user_center_changepasswd = (ViewGroup) view
-				.findViewById(R.id.wemall_user_center_changepasswd);
+		wemall_user_center_changepasswd = (ViewGroup) view.findViewById(R.id.wemall_user_center_changepasswd);
 		wemall_user_center_changepasswd.setOnClickListener(this);
-		user_wodeqianbao = (ViewGroup) view
-				.findViewById(R.id.wemall_user_center_wodeqianbao);
+		user_wodeqianbao = (ViewGroup) view.findViewById(R.id.wemall_user_center_wodeqianbao);
 		user_wodeqianbao.setOnClickListener(this);
 		usercenter_about = (ViewGroup) view.findViewById(R.id.usercenter_about);
 		usercenter_about.setOnClickListener(this);
@@ -114,23 +107,19 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		user_logout.setOnClickListener(this);
 		mFace = (ImageView) view.findViewById(R.id.user_center_user_icon);
 		mFace.setOnClickListener(this);
-		user_center_layout = (ViewGroup) view
-				.findViewById(R.id.usercenterlayout);
+		user_center_layout = (ViewGroup) view.findViewById(R.id.usercenterlayout);
 		loginBar = (ProgressBar) view.findViewById(R.id.loginBar);
-		usercenter_address = (TextView) view
-				.findViewById(R.id.user_center_address);
-		usercenter_username = (TextView) view
-				.findViewById(R.id.user_center_username);
+		usercenter_address = (TextView) view.findViewById(R.id.user_center_address);
+		usercenter_username = (TextView) view.findViewById(R.id.user_center_username);
 		this.userinfo = getActivity().getSharedPreferences("userinfo", 0);
 		this.ReadPreferences();
-		if (!(useruid.equals("NULL") || username.equals("NULL")
-				|| userphone.equals("NULL") || useraddress.equals("NULL"))) {
+		if (!(useruid.equals("NULL") || username.equals("NULL") || userphone.equals("NULL")
+				|| useraddress.equals("NULL"))) {
 			user_login_layout.setVisibility(View.GONE);
 			user_center_layout.setVisibility(View.VISIBLE);
 			usercenter_username.setText(username);
 			// 异步加载头像
-			imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Api/uploads/"
-					+ Utils.MD5(useruid) + ".jpg", mFace);
+			imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE + "Api/uploads/" + Utils.MD5(useruid) + ".jpg", mFace);
 			if (!(useraddress.length() == 0)) {
 				usercenter_address.setText(useraddress);
 			}
@@ -154,9 +143,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 				// xmlwebData解析网络中xml中的数据
 				try {
-					accountinfo = NetLoginCheck.getData("account="
-							+ account.getText().toString() + "&passwd="
-							+ passwd.getText().toString());
+					accountinfo = NetLoginCheck.getData(
+							"account=" + account.getText().toString() + "&passwd=" + passwd.getText().toString());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -207,10 +195,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		}
 
 		else if (userinfo.get("state").equals("1")) {
-			this.SavePreferences((String) userinfo.get("uid"),
-					(String) userinfo.get("name"),
-					(String) userinfo.get("phone"),
-					(String) userinfo.get("address"));
+			this.SavePreferences((String) userinfo.get("uid"), (String) userinfo.get("name"),
+					(String) userinfo.get("phone"), (String) userinfo.get("address"));
 
 			this.ReadPreferences();
 			// 初始化已登录界面//////////////////////////////////////////////
@@ -220,8 +206,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			user_center_layout.setVisibility(View.VISIBLE);
 			usercenter_username.setText((String) userinfo.get("name"));
 			// 异步加载头像
-			imageLoader.DisplayImage(MyConfig.SERVERADDRESS + "Api/uploads/"
-					+ Utils.MD5(useruid) + ".jpg", mFace);
+			imageLoader.DisplayImage(MyConfig.SERVERADDRESS + "Api/uploads/" + Utils.MD5(useruid) + ".jpg", mFace);
 			if (!(userinfo.get("address").toString().length() == 0)) {
 				usercenter_address.setText((String) userinfo.get("address"));
 			}
@@ -277,8 +262,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 						String phone = (String) phoneMap.get("phone");
 
 						// //////////////////////////////////////////////////////////////////
-						Intent intent = new Intent(getActivity(),
-								RecoveryPasswd.class);
+						Intent intent = new Intent(getActivity(), RecoveryPasswd.class);
 						// 用Bundle携带数据
 						Bundle bundle = new Bundle();
 						// 传递name参数为tinyphp
@@ -286,8 +270,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 						intent.putExtras(bundle);
 						startActivityForResult(intent, 0x212);
 						// 定义进入新的Activity的动画
-						((MainUIMain) getActivity()).overridePendingTransition(
-								R.anim.wemall_slide_in_right,
+						((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
 								R.anim.wemall_slide_out_left);
 					}
 				}
@@ -300,8 +283,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			if (((account.getText().toString().trim()).length() == 0)
 					|| ((passwd.getText().toString().trim()).length() == 0)) {
 
-				Toast.makeText(getActivity(), "帐号或密码为空", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(getActivity(), "帐号或密码为空", Toast.LENGTH_SHORT).show();
 			}
 
 			else {
@@ -317,8 +299,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		case R.id.usercenter_about:
 			startActivity(new Intent(getActivity(), About.class));
 			// 定义进入新的Activity的动画
-			((MainUIMain) getActivity()).overridePendingTransition(
-					R.anim.wemall_slide_in_right, R.anim.wemall_slide_out_left);
+			((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
+					R.anim.wemall_slide_out_left);
 			break;
 		case R.id.user_center_clear:
 			CleanTip();
@@ -332,8 +314,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			intent.putExtras(bundle);
 			startActivity(intent);
 			// 定义进入新的Activity的动画
-			((MainUIMain) getActivity()).overridePendingTransition(
-					R.anim.wemall_slide_in_right, R.anim.wemall_slide_out_left);
+			((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
+					R.anim.wemall_slide_out_left);
 			break;
 		case R.id.wemall_user_center_changepasswd:
 			Intent intent1 = new Intent(getActivity(), ChangePasswd.class);
@@ -344,20 +326,23 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			intent1.putExtras(bundle1);
 			startActivityForResult(intent1, 0x211);
 			// 定义进入新的Activity的动画
-			((MainUIMain) getActivity()).overridePendingTransition(
-					R.anim.wemall_slide_in_right, R.anim.wemall_slide_out_left);
+			((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
+					R.anim.wemall_slide_out_left);
 			break;
+		// 修改地址，昵称，电话
 		case R.id.topuserinfo:
 			Intent intent2 = new Intent(getActivity(), UpdateAddress.class);
 			// 用Bundle携带数据
 			Bundle bundle2 = new Bundle();
 			// 传递name参数为tinyphp
 			bundle2.putString("uid", useruid);
+			bundle2.putString("username", username);
+			bundle2.putString("userphone", userphone);
 			intent2.putExtras(bundle2);
 			startActivityForResult(intent2, 0x711);
 			// 定义进入新的Activity的动画
-			((MainUIMain) getActivity()).overridePendingTransition(
-					R.anim.wemall_slide_in_right, R.anim.wemall_slide_out_left);
+			((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
+					R.anim.wemall_slide_out_left);
 			break;
 		case R.id.user_center_user_icon:
 			ChangeUserIcon();
@@ -365,17 +350,14 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		case R.id.wemall_user_center_wodeqianbao:
 			user_wodeqianbao.setClickable(false);
 			if (isPkgInstalled(getActivity(), "com.eg.android.AlipayGphone")) {
-				Intent LaunchIntent = ((MainUIMain) getActivity())
-						.getPackageManager().getLaunchIntentForPackage(
-								"com.eg.android.AlipayGphone");
+				Intent LaunchIntent = ((MainUIMain) getActivity()).getPackageManager()
+						.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
 				startActivity(LaunchIntent);
 				// 定义进入新的Activity的动画
-				((MainUIMain) getActivity()).overridePendingTransition(
-						R.anim.wemall_slide_in_right,
+				((MainUIMain) getActivity()).overridePendingTransition(R.anim.wemall_slide_in_right,
 						R.anim.wemall_slide_out_left);
 			} else {
-				Toast.makeText(getActivity(), "支付宝钱包没有安装", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(getActivity(), "支付宝钱包没有安装", Toast.LENGTH_SHORT).show();
 			}
 			user_wodeqianbao.setClickable(true);
 		default:
@@ -389,8 +371,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			return false;
 		android.content.pm.ApplicationInfo info = null;
 		try {
-			info = context.getPackageManager().getApplicationInfo(packageName,
-					0);
+			info = context.getPackageManager().getApplicationInfo(packageName, 0);
 			return info != null;
 		} catch (NameNotFoundException e) {
 			return false;
@@ -402,8 +383,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	/*
 	 * 登录通过后保存登录信息到Preferences
 	 */
-	public void SavePreferences(String uid, String name, String userphone,
-			String address) {
+	public void SavePreferences(String uid, String name, String userphone, String address) {
 		SharedPreferences.Editor editor = userinfo.edit();
 		editor.putString("useruid", uid);
 		editor.putString("username", name);
@@ -415,6 +395,12 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	public void SavePreferencesnewaddress(String address) {
 		SharedPreferences.Editor editor = userinfo.edit();
 		editor.putString("useraddress", address);
+		editor.commit();
+	}
+
+	public void SavePreferencesnewname(String name) {
+		SharedPreferences.Editor editor = userinfo.edit();
+		editor.putString("username", name);
 		editor.commit();
 	}
 
@@ -451,8 +437,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	 */
 
 	public void CleanTip() {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				getActivity());
+		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		final Dialog dialog = builder.show();
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.wemall_clean_dialog);
@@ -487,8 +472,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	 */
 
 	public void LogoutTip() {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				getActivity());
+		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		final Dialog dialog = builder.show();
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.wemall_logout_dialog);
@@ -506,8 +490,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 			}
 		});
-		ViewGroup logoutcancel = (ViewGroup) window
-				.findViewById(R.id.lougoutcancel);
+		ViewGroup logoutcancel = (ViewGroup) window.findViewById(R.id.lougoutcancel);
 		logoutcancel.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -528,8 +511,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		dlg.show();
 		Window window = dlg.getWindow();
 		window.setContentView(R.layout.wemall_choose_pic_layout);
-		ViewGroup choose_from_camre = (ViewGroup) window
-				.findViewById(R.id.choose_from_camre);
+		ViewGroup choose_from_camre = (ViewGroup) window.findViewById(R.id.choose_from_camre);
 		choose_from_camre.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -540,8 +522,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 			}
 		});
-		ViewGroup choose_from_gallery = (ViewGroup) window
-				.findViewById(R.id.choose_from_gallery);
+		ViewGroup choose_from_gallery = (ViewGroup) window.findViewById(R.id.choose_from_gallery);
 		choose_from_gallery.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -563,12 +544,10 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 		Runnable runnable = new Runnable() {
 			public void run() {
-				String path = new File(
-						android.os.Environment.getExternalStorageDirectory(),
-						"WeMall/ImageCache").getPath();
+				String path = new File(android.os.Environment.getExternalStorageDirectory(), "WeMall/ImageCache")
+						.getPath();
 
-				String size = Utils.FomatFilesize(Utils
-						.getTotalSizeOfFilesInDir(path));
+				String size = Utils.FomatFilesize(Utils.getTotalSizeOfFilesInDir(path));
 				Utils.delAllFile(path);
 				handler.sendMessage(handler.obtainMessage(0x11077, size));
 			}
@@ -582,8 +561,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 				public void handleMessage(Message msg) {
 					if (msg.what == 0x11077) {
 						loginBar.setVisibility(View.GONE);
-						Toast.makeText(getActivity(), msg.obj + "缓存已清除",
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), msg.obj + "缓存已清除", Toast.LENGTH_SHORT).show();
 					}
 				}
 
@@ -609,25 +587,21 @@ public class MainUIUser extends Fragment implements OnClickListener {
 			RequestParams params = new RequestParams();
 			params.put("photo", photo);
 			params.put("uid", useruid);
-			String url = MyConfig.SERVERADDRESS+ "?tag=wemall_update_head";
+			String url = MyConfig.SERVERADDRESS + "?tag=wemall_update_head";
 			AsyncHttpClient client = new AsyncHttpClient();
 			client.setUserAgent(MyConfig.ClientUserAgent);
 			client.post(url, params, new AsyncHttpResponseHandler() {
 				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						byte[] responseBody) {
+				public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 					try {
 						if (statusCode == 200) {
-							Toast.makeText(getActivity(), "头像上传成功!",
-									Toast.LENGTH_SHORT).show();
+							Toast.makeText(getActivity(), "头像上传成功!", Toast.LENGTH_SHORT).show();
 							// 新的头像上传成功后旧的缓存失效,我们需要删除之//
-							FileCache.Filedelete(MyConfig.SERVERADDRESSBASE
-									+ "Api/uploads/" + Utils.MD5(useruid)
-									+ ".jpg");
+							FileCache.Filedelete(
+									MyConfig.SERVERADDRESSBASE + "Api/uploads/" + Utils.MD5(useruid) + ".jpg");
 
 						} else {
-							Toast.makeText(getActivity(), "头像上传失败!",
-									Toast.LENGTH_SHORT).show();
+							Toast.makeText(getActivity(), "头像上传失败!", Toast.LENGTH_SHORT).show();
 
 						}
 					} catch (Exception e) {
@@ -637,10 +611,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 				}
 
 				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						byte[] responseBody, Throwable error) {
-					Toast.makeText(getActivity(), "连接服务器异常", Toast.LENGTH_SHORT)
-							.show();
+				public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+					Toast.makeText(getActivity(), "连接服务器异常", Toast.LENGTH_SHORT).show();
 				}
 			});
 
@@ -667,8 +639,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		// 判断存储卡是否可以用，可用进行存储
 		if (hasSdcard()) {
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(new File(Environment
-							.getExternalStorageDirectory(), PHOTO_FILE_NAME)));
+					Uri.fromFile(new File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME)));
 		}
 		startActivityForResult(intent, PHOTO_REQUEST_CAMERA);
 	}
@@ -703,8 +674,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	 * 判断扩展存储是否存在
 	 */
 	private boolean hasSdcard() {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			return true;
 		} else {
 			return false;
@@ -725,6 +695,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		// ///////////////////////////////////////////////////////////////////
+		System.out.println(resultCode);
 		switch (resultCode) {
 		// 修改密码成功的返回结果
 		case 0x211:
@@ -757,6 +728,18 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 			}
 			break;
+		case 0x712:
+			Bundle backdata3 = data.getExtras();
+			boolean reresult3 = backdata3.getBoolean("result");
+			String newname = backdata3.getString("newname");
+			System.out.println(reresult3 + "0x712");
+			if (reresult3 == true) {
+				username = newname;
+				usercenter_username.setText(newname);
+				SavePreferencesnewname(newname);
+
+			}
+			break;
 		default:
 			break;
 
@@ -775,8 +758,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		// 从照相机获取图像的返回结果
 		case PHOTO_REQUEST_CAMERA:
 			if (hasSdcard()) {
-				tempFile = new File(Environment.getExternalStorageDirectory(),
-						PHOTO_FILE_NAME);
+				tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_FILE_NAME);
 				crop(Uri.fromFile(tempFile));
 			} else {
 				Toast.makeText(getActivity(), "未找到存储卡,无法存储照片!", 0).show();

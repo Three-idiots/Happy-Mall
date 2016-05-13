@@ -22,8 +22,7 @@ import cn.edu.zzu.wemall.net.NetChangePasswd;
 import cn.edu.zzu.wemall.net.NetServerErr;
 
 public class ChangePasswd extends Activity {
-	private EditText wemall_changepasswd_old, wemall_changepasswd_new,
-			wemall_changepasswd_new_re;
+	private EditText wemall_changepasswd_old, wemall_changepasswd_new, wemall_changepasswd_new_re;
 	private ProgressBar wemall_changepasswd_loadingBar;
 	private TextView wemall_changepasswd_button;
 	private Handler handler = null;
@@ -54,8 +53,7 @@ public class ChangePasswd extends Activity {
 			public void onClick(View arg0) {
 				ChangePasswd.this.finish();
 				// 定义退出当前Activity的动画
-				overridePendingTransition(R.anim.wemall_slide_in_left,
-						R.anim.wemall_slide_out_right);
+				overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
 			}
 		});
 
@@ -64,10 +62,8 @@ public class ChangePasswd extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// 隐藏键盘
-				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-						.hideSoftInputFromWindow(getCurrentFocus()
-								.getWindowToken(),
-								InputMethodManager.HIDE_NOT_ALWAYS);
+				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+						getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 				ChangePasswdCheck();
 			}
 		});
@@ -80,8 +76,7 @@ public class ChangePasswd extends Activity {
 			Toast.makeText(this, "新密码至少要六位额....", Toast.LENGTH_SHORT).show();
 		} else if (!(wemall_changepasswd_new.getText().toString()
 				.equals(wemall_changepasswd_new_re.getText().toString()))) {
-			Toast.makeText(this, "两次输入的新密码好像不一样额....", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "两次输入的新密码好像不一样额....", Toast.LENGTH_SHORT).show();
 		} else if (wemall_changepasswd_new.getText().toString()
 				.equals(wemall_changepasswd_new_re.getText().toString())) {
 			wemall_changepasswd_loadingBar.setVisibility(View.VISIBLE);
@@ -99,12 +94,8 @@ public class ChangePasswd extends Activity {
 				// 提交数据到服务器/接收返回的结果
 				try {
 					ChangePasswdtstate = NetChangePasswd
-							.getData("uid="+ uid+ "&old="
-									+ wemall_changepasswd_old.getText()
-											.toString()
-									+ "&new="
-									+ wemall_changepasswd_new.getText()
-											.toString());
+							.getData("uid=" + uid + "&old=" + wemall_changepasswd_old.getText().toString() + "&new="
+									+ wemall_changepasswd_new.getText().toString());
 					// 发送消息，并把persons结合对象传递过去
 					handler.sendEmptyMessage(0x11199);
 				} catch (Exception e) {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white_ffffff">
+    android:background="@drawable/wemall_login_bg"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/loginallitem"
@@ -12,18 +13,24 @@
         android:layout_marginRight="18.0dip"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/wemall_login_logo" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="0.0dp"
             android:layout_marginRight="0.0dp"
-            android:layout_marginTop="22dp" >
+            android:layout_marginTop="22dp"
+            android:background="@color/white_ffffff" >
 
             <TextView
                 android:id="@+id/tv_country_num"
                 android:layout_width="70dip"
                 android:layout_height="match_parent"
-                android:background="@drawable/wemall_input_bg_focus"
                 android:gravity="center"
                 android:paddingTop="15dip"
                 android:text="@string/wemall_login_account"
@@ -33,8 +40,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/wemall_input_bg_special_focus" >
+                android:layout_weight="1" >
 
                 <EditText
                     android:id="@+id/wemall_login_account"
@@ -69,13 +75,13 @@
             android:layout_height="48dp"
             android:layout_marginLeft="0.0dp"
             android:layout_marginRight="0.0dp"
-            android:layout_marginTop="22dp" >
+            android:layout_marginTop="22dp"
+            android:background="@color/white_ffffff" >
 
             <TextView
                 android:id="@+id/login_passwd_t"
                 android:layout_width="70dip"
                 android:layout_height="match_parent"
-                android:background="@drawable/wemall_input_bg_focus"
                 android:gravity="center"
                 android:paddingTop="15dip"
                 android:text="@string/wemall_login_passwd"
@@ -85,8 +91,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/wemall_input_bg_special_focus" >
+                android:layout_weight="1" >
 
                 <EditText
                     android:id="@+id/wemall_login_passwd"
@@ -134,32 +139,36 @@
                 android:text="@string/wemall_one_key_login"
                 android:textColor="@color/white_ffffff"
                 android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/wemall_regist_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_weight="3"
-                android:background="@drawable/wemall_background_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="15dp"
                 android:clickable="true"
-                android:gravity="center"
+                android:paddingRight="0.2dip"
                 android:text="@string/wemall_one_key_regist2"
-                android:textColor="@color/white_ffffff"
-                android:textSize="16.0sp" />
-        </LinearLayout>
+                android:textColor="@color/gray"
+                android:textSize="15.0sp" />
 
-        <TextView
-            android:id="@+id/wemall_forget_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:clickable="true"
-            android:layout_marginTop="15dp"
-            android:paddingRight="0.2dip"
-            android:text="@string/wemall_forgetpasswd"
-            android:textColor="@color/gray"
-            android:textSize="15.0sp" />
+            <TextView
+                android:id="@+id/wemall_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:paddingRight="0.2dip"
+                android:text="@string/wemall_forgetpasswd"
+                android:textColor="@color/gray"
+                android:textSize="15.0sp" />
+        </RelativeLayout>
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

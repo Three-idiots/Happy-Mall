@@ -3,13 +3,14 @@ package cn.edu.zzu.wemall.ui;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 
-import android.R.layout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -43,13 +45,16 @@ import cn.edu.zzu.wemall.R;
 import cn.edu.zzu.wemall.database.DataBaseHelp;
 import cn.edu.zzu.wemall.database.OperateTable;
 import cn.edu.zzu.wemall.net.NetNewAddress;
+import cn.edu.zzu.wemall.net.NetNewName;
 import cn.zzu.edu.wemall.utils.Utils;
 
 public class UpdateAddress extends Activity implements AMapLocationListener {
 	private ViewGroup backbar;
 	private String uid;
 	private boolean flag = false;
+	private boolean flag1 = false;
 	private int state = -1;
+	private int state1 = -1;
 	private EditText newaddress;
 	private ViewGroup addressbutton;
 	private ProgressBar addBar;
@@ -68,6 +73,13 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	private ListView addaddresslist;
 	private DataBaseHelp helper;
 	private List<String> address;
+	private EditText phonenumber;
+	private EditText name;
+	private ImageView savename;
+	private ImageView savephonenumber;
+	private SharedPreferences userinfo;
+	private String OldPhoneNumber;
+	private String OldName;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,6 +95,48 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		// 添加多个收货地址
 		addaddressbutton = (ImageView) findViewById(R.id.addaddressbutton);
 		addaddresslist = (ListView) findViewById(R.id.addaddresslist);
+
+		// 姓名，电话
+		name = (EditText) findViewById(R.id.name);
+		phonenumber = (EditText) findViewById(R.id.phonenumber);
+		OldName = bundle.getString("username");
+		name.setText(OldName);
+		OldPhoneNumber = bundle.getString("userphone");
+		phonenumber.setText(OldPhoneNumber);
+
+		// 修改姓名和电话
+		savename = (ImageView) findViewById(R.id.savename);
+		savephonenumber = (ImageView) findViewById(R.id.savphonenumber);
+		savename.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+						UpdateAddress.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+				NewnameCheck();
+			}
+		});
+		savephonenumber.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				boolean iscorrect = isPhoneNumberValid(phonenumber.getText().toString());
+				if (iscorrect) {
+					if (!phonenumber.getText().toString().equals(OldPhoneNumber)) {
+						SavePreferencesnewphone(phonenumber.getText().toString());
+						Toast.makeText(UpdateAddress.this, "成功修改电话号码", Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(UpdateAddress.this, "电话号码没有改变", Toast.LENGTH_SHORT).show();
+					}
+
+				} else {
+					Toast.makeText(UpdateAddress.this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		});
 
 		netaddressbutton = (ImageView) findViewById(R.id.netaddressbutton);
 		netaddressbutton.setOnClickListener(new OnClickListener() {
@@ -104,8 +158,10 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 
 			@Override
 			public void onClick(View arg0) {
-				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-						UpdateAddress.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+				// ((InputMethodManager)
+				// getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+				// UpdateAddress.this.getCurrentFocus().getWindowToken(),
+				// InputMethodManager.HIDE_NOT_ALWAYS);
 				NewaddressCheck();
 
 			}
@@ -127,8 +183,36 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 				// TODO Auto-generated method stub
 				addaddress();
 				initaddress();
+				newaddress.setText("");
+				UpdateAddress.this.HideKeyboard();
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		userinfo = this.getSharedPreferences("userinfo", 0);
+		String userphone = userinfo.getString("userphone", "NULL");
+		phonenumber.setText(userphone);
+		super.onResume();
+	}
+
+	// 检测手机号输入是否合法
+	public static boolean isPhoneNumberValid(String phoneNumber) {
+		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+		Matcher m = p.matcher(phoneNumber);
+		return m.matches();
+	}
+
+	public void HideKeyboard() {
+		try {
+			((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+					this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	// 判断添加的地址标签的同名字段，和数据库操作
@@ -208,7 +292,8 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 			final ListView listView = (ListView) parent;
 			final String info = listView.getItemAtPosition(position).toString();
 			Dialog dialog = new AlertDialog.Builder(UpdateAddress.this).setIcon(R.drawable.warning).setTitle("确定删除？")
-					.setMessage("您确定要删除" + info + "？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					.setMessage("您确定要删除：  " + info + "？")
+					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
@@ -255,11 +340,64 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 
 	}
 
+	// 更新昵称
+	public void NewnameCheck() {
+		if (name.getText().toString().length() < 2) {
+			Toast.makeText(this, "昵称貌似有点短....", Toast.LENGTH_SHORT).show();
+		}
+		if (name.getText().toString().length() > 15) {
+			Toast.makeText(this, "昵称貌似有点长....", Toast.LENGTH_SHORT).show();
+		} else {
+			if (!name.getText().toString().equals(OldName)) {
+				addBar.setVisibility(View.VISIBLE);
+				addBar.bringToFront();
+				Newname();
+			} else {
+				Toast.makeText(this, "昵称貌似没有改变....", Toast.LENGTH_SHORT).show();
+			}
+
+		}
+	}
+
+	@SuppressLint("HandlerLeak")
+	public void Newname() {
+
+		// 开一条子线程加载网络数据
+		Runnable runnable = new Runnable() {
+			@SuppressWarnings("deprecation")
+			public void run() {
+				// xmlwebData解析网络中xml中的数据
+				state1 = NetNewName.getData(
+						"uid=" + uid + "&name=" + URLEncoder.encode(Utils.getBASE64(name.getText().toString())));
+				// 发送消息，并把persons结合对象传递过去
+				Log.i("i", String.valueOf(state1));
+				handler.sendEmptyMessage(0x22199);
+			}
+		};
+		try {
+			// 开启线程
+			new Thread(runnable).start();
+			// handler与线程之间的通信及数据处理
+			handler = new Handler() {
+				public void handleMessage(Message msg) {
+					if (msg.what == 0x22199) {
+						addBar.setVisibility(View.GONE);
+						addBar.bringToFront();
+						result1();
+					}
+				}
+			};
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void NewaddressCheck() {
 		if (newaddress.getText().toString().length() < 10) {
 			Toast.makeText(this, "地址貌似有点短....", Toast.LENGTH_SHORT).show();
 		} else {
 			addBar.setVisibility(View.VISIBLE);
+			addBar.bringToFront();
 			NewAddress();
 		}
 	}
@@ -286,12 +424,30 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 				public void handleMessage(Message msg) {
 					if (msg.what == 0x22199) {
 						addBar.setVisibility(View.GONE);
+						addBar.bringToFront();
 						result();
 					}
 				}
 			};
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void result1() {
+
+		if (state1 == 0) {
+
+			Toast.makeText(this, "更新昵称失败", Toast.LENGTH_SHORT).show();
+		}
+		if (state1 == -1) {
+
+			Toast.makeText(this, "昵称链接服务器异常,请稍候重试", Toast.LENGTH_SHORT).show();
+		}
+		if (state1 == 1) {
+			flag1 = true;
+			config_exit1();
+
 		}
 	}
 
@@ -310,6 +466,20 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 			config_exit();
 
 		}
+	}
+
+	public void config_exit1() {
+
+		Intent intent = new Intent(UpdateAddress.this, MainUIMain.class);
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("result", flag1);
+		bundle.putString("newname", name.getText().toString());
+		intent.putExtras(bundle);
+		setResult(0x712, intent);
+		Toast.makeText(this, "更新昵称成功", Toast.LENGTH_LONG).show();
+		finish();
+		// 定义退出当前Activity的动画
+		overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
 	}
 
 	public void config_exit() {
@@ -407,6 +577,14 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		this.finish();
 		// 定义退出当前Activity的动画
 		overridePendingTransition(R.anim.wemall_slide_in_left, R.anim.wemall_slide_out_right);
+	}
+
+	// 修改配置文件电话
+	public void SavePreferencesnewphone(String phone) {
+		userinfo = this.getSharedPreferences("userinfo", 0);
+		SharedPreferences.Editor editor = userinfo.edit();
+		editor.putString("userphone", phone);
+		editor.commit();
 	}
 
 }
