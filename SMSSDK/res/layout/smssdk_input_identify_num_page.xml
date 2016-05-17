@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@drawable/smssd_regist_bg"
         android:orientation="vertical"
         android:paddingLeft="16dip"
         android:paddingRight="16dip" >
@@ -45,27 +45,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/smssdk_input_bg_focus" >
+                android:background="@drawable/smssdk_text_disenable" >
 
                 <EditText
                     android:id="@+id/et_put_identify"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="15dp"
                     android:layout_marginLeft="4dip"
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:hint="@string/smssdk_write_identify_code"
                     android:inputType="number"
+                    android:paddingTop="15dp"
                     android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/iv_clear"
-                    android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="0dip"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/smssdk_clear_search"
                     android:scaleType="fitCenter"
                     android:visibility="gone" />
@@ -73,10 +73,10 @@
 
             <TextView
                 android:id="@+id/tv_unreceive_identify"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="48dip"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="1dp"
                 android:layout_weight="3"
                 android:background="@drawable/smssdk_btn_disenable"
                 android:gravity="center"

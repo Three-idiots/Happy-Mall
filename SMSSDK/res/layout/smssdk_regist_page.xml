@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/smssd_regist_bg"
     android:orientation="vertical" >
 
     <include
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="0dip"
+            android:textColor="#000000"
             android:layout_weight="1"
             android:gravity="right"
-            android:textColor="#ff45c01a"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -58,22 +58,22 @@
             android:id="@+id/tv_country_num"
             android:layout_width="70dip"
             android:layout_height="match_parent"
-            android:paddingTop="15dip"
-            android:background="@drawable/smssdk_input_bg_focus"
+            android:background="@drawable/smssdk_text_disenable"
             android:gravity="center"
+            android:paddingTop="15dip"
             android:textColor="#ff353535"
             android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@drawable/smssdk_input_bg_special_focus" >
+            android:background="@drawable/smssdk_text_disenable" >
 
             <EditText
                 android:id="@+id/et_write_phone"
                 android:layout_width="0dip"
-                android:paddingTop="15dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
@@ -82,16 +82,17 @@
                 android:background="@null"
                 android:hint="@string/smssdk_write_mobile_phone"
                 android:inputType="phone"
+                android:paddingTop="15dip"
                 android:textColor="#ff353535"
                 android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/iv_clear"
                 android:layout_width="17dp"
-                android:layout_marginTop="5dip"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="0dp"
+                android:layout_marginTop="5dip"
                 android:background="@drawable/smssdk_clear_search"
                 android:scaleType="centerInside"
                 android:visibility="gone" />

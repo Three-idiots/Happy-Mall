@@ -60,13 +60,11 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/title_layout_changepasswd"
-        android:background="@color/white_ffffff">
+        android:background="@color/white_ffffff" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="18.0dip"
-            android:layout_marginRight="18.0dip"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -74,12 +72,12 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="0.0dp"
                 android:layout_marginRight="0.0dp"
-                android:layout_marginTop="22dp" >
+                android:layout_marginTop="22dp"
+                android:background="@drawable/wemall_text_back" >
 
                 <TextView
                     android:layout_width="90dip"
                     android:layout_height="match_parent"
-                    android:background="@drawable/wemall_input_bg_focus"
                     android:gravity="center"
                     android:paddingTop="15dip"
                     android:text="@string/wemall_changepasswd_old"
@@ -89,8 +87,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/wemall_input_bg_special_focus" >
+                    android:layout_weight="1" >
 
                     <EditText
                         android:id="@+id/wemall_changepasswd_old"
@@ -124,14 +121,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginLeft="0.0dp"
-                android:layout_marginRight="0.0dp"
-                android:layout_marginTop="22dp" >
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:background="@drawable/wemall_text_back" >
 
                 <TextView
                     android:layout_width="90dip"
                     android:layout_height="match_parent"
-                    android:background="@drawable/wemall_input_bg_focus"
                     android:gravity="center"
                     android:paddingTop="15dip"
                     android:text="@string/wemall_changepasswd_new"
@@ -141,8 +137,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/wemall_input_bg_special_focus" >
+                    android:layout_weight="1" >
 
                     <EditText
                         android:id="@+id/wemall_changepasswd_new"
@@ -176,14 +171,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginLeft="0.0dp"
-                android:layout_marginRight="0.0dp"
-                android:layout_marginTop="22dp" >
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:background="@drawable/wemall_text_back" >
 
                 <TextView
                     android:layout_width="90dip"
                     android:layout_height="match_parent"
-                    android:background="@drawable/wemall_input_bg_focus"
                     android:gravity="center"
                     android:paddingTop="15dip"
                     android:text="@string/wemall_regist_passwd_repeat"
@@ -193,8 +187,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/wemall_input_bg_special_focus" >
+                    android:layout_weight="1" >
 
                     <EditText
                         android:id="@+id/wemall_changepasswd_new_re"
@@ -229,6 +222,8 @@
                 android:id="@+id/wemall_changepasswd_button"
                 android:layout_width="fill_parent"
                 android:layout_height="50.0dip"
+                android:layout_marginLeft="18.0dip"
+                android:layout_marginRight="18.0dip"
                 android:layout_marginTop="30.0dip"
                 android:background="@drawable/wemall_background_green"
                 android:clickable="true"

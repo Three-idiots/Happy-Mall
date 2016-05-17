@@ -1,7 +1,7 @@
 <?php
 ///////////////////////////////////////////////
 /**********************************************
-WeMall客户端Api,刘德位编写
+WeMall客户端Api,刘德位编�?
 Bug反馈QQ:793554262
 **********************************************/
 ///////////////////////////////////////////////
@@ -60,6 +60,9 @@ else{
 			break;
 		case 'wemall_update_myadder':
 			wemall_update_myadder();
+			break;
+        case 'wemall_update_myname':
+			wemall_update_myname();
 			break;
 		case 'wemall_query_goods':
 			wemall_query_goods();
@@ -123,9 +126,26 @@ function wemall_update_myadder(){
 		echo "非法请求";
 	}
 }
+function wemall_update_myname(){
+	$uid=$_POST['uid'];
+	$address=base64_decode($_POST['name']);
+	if (isset($_POST['uid'])&&isset($_POST['name'])){
+		$result =@mysql_query("select uid from ".DB_PREFIX."user where uid='$uid' limit 1") or die("");
+		if (mysql_num_rows($result)==0){
+				echo "0";
+		}
+		elseif (mysql_num_rows($result)==1){
+				@mysql_query("update ".DB_PREFIX."user set name='$name' where uid='$uid'") or die("");
+				echo "1";
+		}
+	}
+	else{
+		echo "非法请求";
+	}
+}
 //查询商品
 function wemall_query_goods(){
-	$preg = "/<\/?[^>]+>/i";//正则表达式,剔除详情里的html标签
+	$preg = "/<\/?[^>]+>/i";//正则表达�?剔除详情里的html标签
 	$type=$_POST['type'];//分类标志
 	if (isset($_POST['type'])){
 		$sql = "select * from ".DB_PREFIX."good where menu_id='$type' and status=1";
@@ -157,7 +177,7 @@ function wemall_add_order(){
 	while ($row=mysql_fetch_array($result)) {
 		$userid=$row['id'];
 	}
-	//校验并插入订单
+	//校验并插入订�?
 	if(isset($_POST['uid'])){
 	$sql = "insert into ".DB_PREFIX."order (id,user_id,orderid,totalprice,pay_style,pay_status,note,order_status,time,cartdata) values(NULL,'$userid','$orderid','$totalprice','$paystyle','$paystatus','$note',0,CURRENT_TIMESTAMP,'$cartdata')";
 	mysql_query($sql);
@@ -252,7 +272,7 @@ function wemall_user_regist(){
 	$phone=$_POST['phone'];
 	$name=base64_decode($_POST['name']);
 	$saltuid=getRandStr($length=10);
-	$uid=md5($_POST['phone'].$saltuid); //给用户构造一个唯一的UID,这里我们使用手机号加10位随机字符串的md5作为生成方案
+	$uid=md5($_POST['phone'].$saltuid); //给用户构造一个唯�?��UID,这里我们使用手机号加10位随机字符串的md5作为生成方案
 	$passwd=md5($_POST['passwd']);
 	if (isset($_POST['phone'])&&isset($_POST['name'])&&isset($_POST['passwd'])){
 	$result =@ mysql_query("select uid from ".DB_PREFIX."user where phone='$phone'") or die("");

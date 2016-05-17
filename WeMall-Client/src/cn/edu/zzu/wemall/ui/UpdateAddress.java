@@ -1,15 +1,18 @@
 package cn.edu.zzu.wemall.ui;
 
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.LocationManagerProxy;
-import com.amap.api.location.LocationProviderProxy;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,7 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,7 +63,10 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	private Handler handler = null;
 	private boolean manual = false;// 判断是否是手动获取地址,如果是在没有主动获取地址的情况下点击了使用网络地址,则在获取到地之后主动覆盖到编辑框
 	private String netaddress = null; // 通过高德地图接口定位获取当前地址...么么哒
-	private LocationManagerProxy mLocationManagerProxy;
+	// 声明mLocationOption对象
+	public AMapLocationClientOption mLocationOption = null;
+	public AMapLocationClient mlocationClient;
+
 	private ImageView netaddressbutton;
 	private ImageView addaddressbutton;
 	private DataBaseHelp openhelper;
@@ -89,7 +94,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 		uid = bundle.getString("uid");
 		newaddress = (EditText) findViewById(R.id.newaddress);
 		addBar = (ProgressBar) findViewById(R.id.newaddloadingBar);
-		initnetaddress();
+      
 		addressbutton = (ViewGroup) findViewById(R.id.title_right_layout_newadd);
 		this.backbar = (ViewGroup) findViewById(R.id.title_left_layout_newadd);
 		// 添加多个收货地址
@@ -137,21 +142,16 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 
 			}
 		});
-
+		// 获取定位坐标
 		netaddressbutton = (ImageView) findViewById(R.id.netaddressbutton);
 		netaddressbutton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				// 判断,如果系统没有在启动activity时获取到地址,就尝试手动获取,并修改手动获取标志为真,如果已经获取到,则覆盖到输入框
-				if (netaddress == null) {
-					Toast.makeText(UpdateAddress.this, "正在获取地址,请稍候...", Toast.LENGTH_SHORT).show();
-					manual = true;
-					initnetaddress();
-				} else {
+				Toast.makeText(UpdateAddress.this, "正在获取地址,请稍候...", Toast.LENGTH_SHORT).show();
 
-					newaddress.setText(netaddress);
-				}
+				initnetaddress();
+				newaddress.setText(netaddress);
 			}
 		});
 		addressbutton.setOnClickListener(new OnClickListener() {
@@ -497,63 +497,57 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	}
 
 	private void initnetaddress() {
-		// 初始化定位，只采用网络定位
-		mLocationManagerProxy = LocationManagerProxy.getInstance(this);
-		mLocationManagerProxy.setGpsEnable(false);
+
+		mlocationClient = new AMapLocationClient(this);
+		// 初始化定位参数
+		mLocationOption = new AMapLocationClientOption();
+		// 设置返回地址信息，默认为true
+		mLocationOption.setNeedAddress(true);
+		// 设置定位监听
+		mlocationClient.setLocationListener(this);
+		// 设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+		mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+		// 设置定位间隔,单位毫秒,默认为2000ms
+		mLocationOption.setInterval(2000);
+		// 设置定位参数
+		mlocationClient.setLocationOption(mLocationOption);
 		// 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-		// 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用removeUpdates()方法来取消定位请求
-		// 在定位结束后，在合适的生命周期调用destroy()方法
-		// 其中如果间隔时间为-1，则定位只定一次,
-		// 在单次定位情况下，定位无论成功与否，都无需调用removeUpdates()方法移除请求，定位sdk内部会移除
-		mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
-
-	}
-
-	@Override
-	public void onLocationChanged(Location arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onProviderDisabled(String arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onProviderEnabled(String arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
+		// 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
+		// 在定位结束后，在合适的生命周期调用onDestroy()方法
+		// 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
+		// 启动定位
+		mlocationClient.startLocation();
 
 	}
 
 	@Override
 	public void onLocationChanged(AMapLocation amapLocation) {
-		if (amapLocation != null && amapLocation.getAMapException().getErrorCode() != 0) {
-			// 获取网络地址失败
-		}
-
-		if (amapLocation != null && amapLocation.getAMapException().getErrorCode() == 0) {
-			// 定位成功回调信息，设置相关消息
-			if (amapLocation.getProvince() == null) {
-				// 地址信息为空....
+		if (amapLocation != null) {
+			if (amapLocation.getErrorCode() == 0) {
+				// 定位成功回调信息，设置相关消息
+				amapLocation.getLocationType();// 获取当前定位结果来源，如网络定位结果，详见定位类型表
+				amapLocation.getLatitude();// 获取纬度
+				amapLocation.getLongitude();// 获取经度
+				amapLocation.getAccuracy();// 获取精度信息
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date = new Date(amapLocation.getTime());
+				df.format(date);// 定位时间
+				amapLocation.getAddress();// 地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+				amapLocation.getCountry();// 国家信息
+				amapLocation.getProvince();// 省信息
+				amapLocation.getCity();// 城市信息
+				amapLocation.getDistrict();// 城区信息
+				amapLocation.getStreet();// 街道信息
+				amapLocation.getStreetNum();// 街道门牌号信息
+				amapLocation.getCityCode();// 城市编码
+				amapLocation.getAdCode();// 地区编码
+				netaddress = amapLocation.getProvince() + amapLocation.getCity() + amapLocation.getDistrict()
+						+ amapLocation.getStreet() + amapLocation.getStreetNum();
 			} else {
-				// 将网络地址赋予变量,以供需要时使用
-				if (manual == true) {
-					// 注意去除高德返回的地址中的不确定因素
-					this.netaddress = (amapLocation.getAddress()).replaceAll("靠近", "");
-					newaddress.setText(netaddress);
-				} else {
-					this.netaddress = (amapLocation.getAddress()).replaceAll("靠近", "");
-				}
+				// 显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+				Log.e("AmapError", "location Error, ErrCode:" + amapLocation.getErrorCode() + ", errInfo:"
+						+ amapLocation.getErrorInfo());
 			}
-
 		}
 
 	}
@@ -561,10 +555,8 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// 移除定位请求
-		mLocationManagerProxy.removeUpdates(this);
-		// 销毁定位
-		mLocationManagerProxy.destroy();
+		mlocationClient.stopLocation();// 停止定位
+		mlocationClient.onDestroy();// 销毁定位客户端
 	}
 
 	protected void onDestroy() {
