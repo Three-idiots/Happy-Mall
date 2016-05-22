@@ -26,6 +26,7 @@ import android.widget.Toast;
 import cn.edu.zzu.wemall.R;
 import cn.edu.zzu.wemall.config.MyConfig;
 import cn.edu.zzu.wemall.database.SQLProcess;
+import cn.edu.zzu.wemall.database.SqliteProcess;
 import cn.edu.zzu.wemall.mylazylist.ImageLoader;
 import cn.edu.zzu.wemall.object.GoodsItem;
 
@@ -40,7 +41,7 @@ public class ItemDetails extends Activity implements OnClickListener {
 	private TextView intro;
 	private TextView price,addtocart,tiemsummary,dgotocart;
 	private EditText itemnum;
-	private ImageView image, share;
+	private ImageView image, share,love;
 	private ImageLoader imageLoader;
 	private ViewGroup backbar;
 	private Button itemcut, itemadd;
@@ -53,6 +54,8 @@ public class ItemDetails extends Activity implements OnClickListener {
 	private String goodname, goodimgurl;
 	private Double goodprice;
 	private SQLProcess wemalldb;
+	private SqliteProcess favourite;
+	private boolean loveselect=false;
 	// ///////////////////////////////////////////////////
 	// 首先在您的Activity中添加如下成员变量
 	final UMSocialService mController = UMServiceFactory
@@ -94,6 +97,8 @@ public class ItemDetails extends Activity implements OnClickListener {
 		this.backbar.setOnClickListener(this);
 		this.share = (ImageView) findViewById(R.id.title_right_button_details);
 		this.share.setOnClickListener(this);
+		this.love=(ImageView) findViewById(R.id.love);
+		this.love.setOnClickListener(this);
 		this.imageLoader.DisplayImage(MyConfig.SERVERADDRESSBASE
 				+ "Public/Uploads/"
 				+ thisitem.getImage(), this.image);
@@ -102,6 +107,9 @@ public class ItemDetails extends Activity implements OnClickListener {
 		if(wemalldb.read_cart_item_num(goodid) !=0){
 			this.num=wemalldb.read_cart_item_num(goodid);
 		};
+		favourite=new SqliteProcess(this);
+		loveselect=favourite.exist(this.goodid+"");
+		love.setImageResource(loveselect?R.drawable.love_selected:R.drawable.love_default);
 		this.itemnum.setText(String.valueOf(num));
 		// ///////////////////////////////////////////////////////////////
 		// 设置分享内容
@@ -184,6 +192,18 @@ public class ItemDetails extends Activity implements OnClickListener {
 		case R.id.dgotocart:
 			flag2=true;
 			this.config_exit_this_activity();
+			break;
+		case R.id.love:
+			if(loveselect){
+				love.setImageResource(R.drawable.love_default);
+				favourite.delete_cartitem(this.goodid);
+			}
+			else{
+				love.setImageResource(R.drawable.love_selected);
+				favourite.insert_to_cart(this.goodid, this.goodname
+						, this.goodimgurl, thisitem.getIntro());
+			}
+			loveselect=!loveselect;
 			break;
 		default:
 			break;

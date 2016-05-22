@@ -57,7 +57,7 @@
                 android:textColor="@color/white_ffffff"
                 android:textSize="22sp" />
         </LinearLayout>
-
+        
         <ImageView
             android:id="@+id/title_right_button_details"
             android:layout_width="wrap_content"
@@ -70,6 +70,16 @@
             android:paddingRight="5.0dip"
             android:singleLine="true"
             android:src="@drawable/wemall_share" />
+        
+        <ImageView 
+            android:id="@+id/love"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/love_default"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/title_right_button_details"
+            android:layout_marginRight="5dp"/>
+
     </RelativeLayout>
     <!-- 以上为Bar布局 -->
     <!-- 以下为可滚动部分布局 -->

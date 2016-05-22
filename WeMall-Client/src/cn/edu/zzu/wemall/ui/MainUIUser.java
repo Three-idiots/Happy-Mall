@@ -58,7 +58,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 
 	private View view;
 	private ViewGroup user_login_layout, user_center_layout, user_logout, usercenter_about, user_center_myorder,
-			user_center_claer, user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo;
+			user_center_claer, user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo
+			,wemall_user_center_favourite;
 	private ProgressBar loginBar;
 	private TextView login, regist, wemall_forget_password;
 	private EditText account, passwd;
@@ -99,6 +100,8 @@ public class MainUIUser extends Fragment implements OnClickListener {
 		user_center_myorder.setOnClickListener(this);
 		wemall_user_center_changepasswd = (ViewGroup) view.findViewById(R.id.wemall_user_center_changepasswd);
 		wemall_user_center_changepasswd.setOnClickListener(this);
+		wemall_user_center_favourite=(ViewGroup) view.findViewById(R.id.wemall_user_favourite);
+		wemall_user_center_favourite.setOnClickListener(this);
 		user_wodeqianbao = (ViewGroup) view.findViewById(R.id.wemall_user_center_wodeqianbao);
 		user_wodeqianbao.setOnClickListener(this);
 		usercenter_about = (ViewGroup) view.findViewById(R.id.usercenter_about);
@@ -360,6 +363,9 @@ public class MainUIUser extends Fragment implements OnClickListener {
 				Toast.makeText(getActivity(), "支付宝钱包没有安装", Toast.LENGTH_SHORT).show();
 			}
 			user_wodeqianbao.setClickable(true);
+		case R.id.wemall_user_favourite:
+			startActivity(new Intent(getActivity(),MyFavourite.class));
+			break;
 		default:
 			break;
 		}
