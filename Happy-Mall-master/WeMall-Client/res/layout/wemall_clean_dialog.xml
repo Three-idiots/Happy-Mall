@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:layout_marginLeft="20dip"
+    android:layout_marginRight="20dip"
+    android:background="@drawable/wemall_alertdialog_shape"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/cleantip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="left"
+            android:text="@string/wemall_cleantiptext"
+            android:textSize="17.0sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/gray_efefef" />
+
+    <LinearLayout
+        android:id="@+id/lougoutcancel"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/cleanc"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/wemall_white_to_gray"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="18.0sp" />
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="match_parent"
+            android:background="@color/gray_efefef" />
+
+        <TextView
+            android:id="@+id/cleanb"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/wemall_white_to_gray"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="清理"
+            android:textSize="18.0sp" />
+    </LinearLayout>
+
+</LinearLayout>

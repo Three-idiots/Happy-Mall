@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/wemall_white_to_gray" >
+
+        <TextView
+            android:id="@+id/popitemt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2.0dip"
+            android:text="商品:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt1"
+            android:text="红烧茄子"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemt4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2.0dip"
+            android:text="购买:"
+            android:textColor="@color/gray_999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/popitemnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/popitemt4"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt4"
+            android:text="120"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/popitemt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/popitemnum"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemnum"
+            android:text="份"
+            android:textColor="@color/gray_999999"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/popitemt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="2.0dip"
+            android:text="单价:"
+            android:textColor="@color/gray_999999"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/popitemprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/popitemt2"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemt2"
+            android:text="120"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/popitemt6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/popitemprice"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/popitemprice"
+            android:text="元"
+            android:textColor="@color/gray_999999"
+            android:textSize="16sp" />
+        
+        
+        
+        
+        <TextView
+            android:id="@+id/popitemt1total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2.0dip"
+            android:text="300"
+            android:textColor="@color/gray_a999999"
+            android:textSize="34sp" />
+    </RelativeLayout>
+
+</LinearLayout>
