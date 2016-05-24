@@ -363,6 +363,7 @@ public class MainUIUser extends Fragment implements OnClickListener {
 				Toast.makeText(getActivity(), "支付宝钱包没有安装", Toast.LENGTH_SHORT).show();
 			}
 			user_wodeqianbao.setClickable(true);
+			break;
 		case R.id.wemall_user_favourite:
 			startActivity(new Intent(getActivity(),MyFavourite.class));
 			break;

@@ -99,6 +99,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme_Animation_Activity_RightInRightOut" >
         </activity>
+        <activity
+            android:name="cn.edu.zzu.wemall.ui.MyFavourite"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <!-- ************************************************************************* -->
         <!-- 以下为第三方信息，请注意填写 -->
         <!-- 此处填写U盟的APPkey -->
