@@ -555,6 +555,7 @@ public class UpdateAddress extends Activity implements AMapLocationListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		mlocationClient = new AMapLocationClient(this);
 		mlocationClient.stopLocation();// 停止定位
 		mlocationClient.onDestroy();// 销毁定位客户端
 	}
