@@ -13,10 +13,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ListFragment;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,7 +55,7 @@ public class MainUiGoods extends ListFragment implements OnClickListener,
 	private boolean PullRefresh = true;
 	private int num = 30;// 每次显示的条目数，多余的隐藏到上拉加载更多里面
 	private int group = 1;// 显示第几组数据，分段加载需要
-
+	private EditText search;
 	@SuppressLint("InflateParams")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -60,6 +64,49 @@ public class MainUiGoods extends ListFragment implements OnClickListener,
 		reload = (TextView) view.findViewById(R.id.error_notice_button1);
 		list = (ViewGroup) view.findViewById(R.id.list);
 		loading = (ProgressBar) view.findViewById(R.id.good_loadingBar);
+		search=(EditText)view.findViewById(R.id.search);
+		search.addTextChangedListener(new TextWatcher()
+				{
+
+					@Override
+					public void afterTextChanged(Editable arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						String str=search.getText().toString();
+						if(TextUtils.isEmpty(str))
+						{
+							adapter.set_datasource(DisplayItem);
+							adapter.notifyDataSetChanged();
+						}
+						else
+						{
+							ArrayList<GoodsItem> newData=new ArrayList<GoodsItem>();
+							for(int i=0;i<DisplayItem.size();i++)
+							{
+								GoodsItem item=DisplayItem.get(i);
+								String name=item.getName();
+								if(-1!=name.indexOf(str))
+								{
+									newData.add(item);
+								}
+							}
+							adapter.set_datasource(newData);
+							adapter.notifyDataSetChanged();
+						}
+					}
+
+			
+				});
 		reload.setOnClickListener(this);
 		return view;
 	}
