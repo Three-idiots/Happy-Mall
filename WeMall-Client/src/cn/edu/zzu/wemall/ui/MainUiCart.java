@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.view.FriendSelView;
 
+import android.R.string;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +15,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.renderscript.Sampler.Value;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -257,12 +260,15 @@ public class MainUiCart extends ListFragment implements OnCheckedChangeListener 
 		// .show();
 		// } else if (state == 1) {
 		// state = -1;
+		cart=wemalldb.read_cart();
 		for(int i=0;i<cart.size();i++)
 		{
+			System.out.println("haha="+cart.get(i).get("isselect"));
 			if(cart.get(i).get("isselect").equals("1"))
 			{
 				wemalldb.delete_cartitem(
 						Integer.parseInt(cart.get(i).get("id").toString()));
+			Log.i("i", String.valueOf(i));
 			}
 		}
 		note.setText("");
