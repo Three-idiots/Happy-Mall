@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/wemall_welcome_back">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:paddingBottom="70dp"
+        android:persistentDrawingCache="animation" />
+
+    <RadioGroup
+        android:id="@+id/main_radiogroup"
+        android:layout_width="140dp"
+        android:layout_height="18dp"
+        android:paddingLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/welcomebutton1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:button="@drawable/wemall_welcome_button"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/welcomebutton2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:button="@drawable/wemall_welcome_button" />
+
+        <RadioButton
+            android:id="@+id/welcomebutton3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:button="@drawable/wemall_welcome_button" />
+
+        <RadioButton
+            android:id="@+id/welcomebutton4"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:button="@drawable/wemall_welcome_button" />
+    </RadioGroup>
+
+</RelativeLayout>

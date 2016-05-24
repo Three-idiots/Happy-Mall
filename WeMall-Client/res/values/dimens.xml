@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="wemall_user_center_icon_width">33.0dip</dimen>
+    <dimen name="wemall_user_center_icon_height">33.0dip</dimen>
+    <dimen name="wemall_user_center_user_icon_layout_width">50.0dip</dimen>
+    <dimen name="wemall_user_center_user_icon_layout_height">50.0dip</dimen>
+    <dimen name="wemall_all_titlebar_height">48.0dip</dimen>
+    <dimen name="wemall_line_horizon">1.0px</dimen>
+</resources>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff" >
+
+    <!-- 侧目录标签,此元素只允许有两个子元素,一个为侧划菜单,一个为正常显示的内容 -->
+
+    <cn.edu.zzu.wemall.ui.SlideMenu
+        android:id="@+id/slide_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/wemall_menu_layout" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/slidemenubar"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/wemall_all_titlebar_height"
+                android:background="@color/wemall_all_titlebar_back" >
+
+                <LinearLayout
+                    android:id="@+id/main_title_left_layout_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="70.0dip"
+                    android:background="@drawable/wemall_background_back"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="0.0dip"
+                    android:paddingRight="0dp" >
+
+                    <ImageView
+                        android:id="@+id/slidemenuimage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:contentDescription="@null"
+                        android:duplicateParentState="true"
+                        android:paddingLeft="4dip"
+                        android:paddingRight="0dip"
+                        android:scaleType="center"
+                        android:src="@drawable/wemall_menu_bar" />
+
+                    <TextView
+                        android:id="@+id/main_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="5.0dip"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_vertical"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:minWidth="30.0dip"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="0dip"
+                        android:singleLine="true"
+                        android:text="@string/wemall_allgood"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/main_title_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5.0dip"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:minWidth="30.0dip"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="0dip"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vPager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/slidemenubar"
+                android:paddingBottom="52dp"
+                android:persistentDrawingCache="animation" />
+
+            <RadioGroup
+                android:id="@+id/main_radiogroup"
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom|left"
+                android:background="@drawable/wemall_mainui_bar_bg"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/type_tab_good"
+                    style="@style/radioButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/wemall_radiobutton_back"
+                    android:drawableTop="@drawable/wemall_tab_good_draw"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wemall_type_good"
+                    android:textColor="@color/wemall_button_text_color" />
+
+                <RadioButton
+                    android:id="@+id/type_tab_cart"
+                    style="@style/radioButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/wemall_radiobutton_back"
+                    android:drawableTop="@drawable/wemall_tab_cart_draw"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wemall_type_cart"
+                    android:textColor="@color/wemall_button_text_color" />
+
+                <RadioButton
+                    android:id="@+id/type_tab_user"
+                    style="@style/radioButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/wemall_radiobutton_back"
+                    android:drawableTop="@drawable/wemall_tab_user_draw"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wemall_type_user"
+                    android:textColor="@color/wemall_button_text_color" />
+            </RadioGroup>
+        </RelativeLayout>
+    </cn.edu.zzu.wemall.ui.SlideMenu>
+
+</RelativeLayout>

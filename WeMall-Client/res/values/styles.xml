@@ -1,0 +1,40 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme"></style>
+
+    <style name="radioButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:textColor">#999999</item>
+    </style>
+
+    <!-- animation themes -->
+    <style name="Theme_Animation_Activity_RightInRightOut" parent="android:Theme.Light">
+        <item name="android:windowAnimationStyle">@style/Animation_Activity_RightInRightOut</item>
+    </style>
+
+    <style name="Theme_Animation_Dialog_RightInRightOut" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/Animation_Dialog_RightInRightOut</item>
+    </style>
+
+    <!-- 用于普通的Activity -->
+    <style name="Animation_Activity_RightInRightOut" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/wemall_slide_in_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/wemall_slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/wemall_slide_out_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/wemall_slide_out_right</item>
+    </style>
+
+    <!-- 用于Dialog类型的Activity，其如果想设置动画必须用这个（继承Animation.Dialog） -->
+    <style name="Animation_Dialog_RightInRightOut" parent="@android:style/Animation.Dialog">
+        <item name="android:activityOpenEnterAnimation">@anim/wemall_slide_in_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/wemall_slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/wemall_slide_out_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/wemall_slide_out_right</item>
+    </style>
+
+</resources>

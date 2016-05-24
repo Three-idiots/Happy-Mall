@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- 根据颜色值命名 -->
+    <color name="white_ffffff">#FFFFFF</color>
+    <color name="red">#ff0000</color>
+    <color name="black">#000000</color>
+    <color name="gray_bg">#ffeeeeec</color>
+    <color name="blue">#0000ff</color>
+    <color name="lightred">#cd2626</color>
+    <color name="orange">#daa520</color>
+    <color name="gray">#666666</color>
+    <color name="green">#00ff00</color>
+    <color name="lightgreen">#3bd4c9</color>
+    <color name="saddlebrown">#8B4513</color>
+    <color name="transparent">#50000000</color>
+    <color name="grid_border">#FFC6C6C6</color>
+    <color name="buttonchecked">#45C01A</color>
+    <color name="buttoncommon">#999999</color>
+    <color name="black_555555">#ff555555</color>
+    <color name="green_56af43">#ff56af43</color>
+    <color name="gray_939393">#ff939393</color>
+    <color name="gray_999999">#ff999999</color>
+    <color name="gray_a999999">#44999999</color>
+    <color name="white_e0e0e0">#ffe0e0e0</color>
+    <color name="frame_f9f9f9">#fff2f4f5</color>
+    <color name="black_444444">#ff444444</color>
+    <color name="gray_efefef">#ffefefef</color>
+    <!-- 根据用途命名 -->
+    <color name="wemall_menu_item">#BFBFBF</color>
+    <color name="wemall_menu_item_back_n">#00000000</color>
+    <color name="wemall_menu_item_back_p">#22DEDEDE</color>
+    <color name="wemall_menu_line">#DD313131</color>
+    <color name="wemall_menu_title">#BFBFBF</color>
+    <color name="wemall_menu_back">#FF313131</color>
+    <color name="wemall_splash_all">#999999</color>
+    <color name="wemall_welcome_back">#FFFFFF</color>
+    <color name="wemall_all_titlebar_back">#394A5A</color>
+    <color name="wemall_radiobutton_back">#00000000</color>
+    <color name="wemall_detailsbar_back">#66000000</color>
+
+</resources>
