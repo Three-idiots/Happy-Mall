@@ -4,18 +4,32 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:padding="0dp" >
-    <EditText
-	    android:id="@+id/search"
-	    android:layout_width="match_parent"
-	    android:layout_height="50dp" 
-	    />
+    
+    <LinearLayout 
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <EditText
+            android:paddingLeft="5dp"
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="请输入搜索商品关键词"/>
+    </LinearLayout>
+    
     <include
         android:id="@+id/errnet"
         layout="@layout/wemall_error_net"
         android:visibility="gone" />
 
     <include
+        android:layout_below="@+id/search_bar"
         android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         layout="@layout/wemall_good_list" />
 
     <ProgressBar
