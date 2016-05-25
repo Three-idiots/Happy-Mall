@@ -1,6 +1,9 @@
 package cn.edu.zzu.wemall.ui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
@@ -10,12 +13,15 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +39,7 @@ public class Myorder extends Activity implements IXListViewListener {
 
 	private Handler handler = null;
 	private ArrayList<OrderItem> allorders;
+	private ArrayList<OrderItem> oldorders=new ArrayList<OrderItem>();;
 	private String uid;
 	private OrderAdapter adapter;
 	private XListView myorder;
@@ -41,12 +48,15 @@ public class Myorder extends Activity implements IXListViewListener {
 	private boolean PullRefresh = true;
 	private int num = 100;
 	private int group = 1;
-
+    private Button comfirm,cancel;
+    private EditText firstYear,firstMonth,firstDay,lastYear,lastMonth,lastDay;
+   
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.wemall_user_myorder);
+		initView();
 		myorder = (XListView) findViewById(R.id.listorder);
 		myorder.setPullRefreshEnable(PullRefresh);
 		myorder.setPullLoadEnable(false);
@@ -86,7 +96,108 @@ public class Myorder extends Activity implements IXListViewListener {
 		}
 
 	}
+	private void initView()
+	{
+		comfirm=(Button) this.findViewById(R.id.comfirm);
+		cancel=(Button) this.findViewById(R.id.cancel);
+		firstYear=(EditText) this.findViewById(R.id.first_year);
+		firstMonth=(EditText) this.findViewById(R.id.first_month);
+		firstDay=(EditText) this.findViewById(R.id.first_day);
+		lastYear=(EditText) this.findViewById(R.id.last_year);
+		lastMonth=(EditText) this.findViewById(R.id.last_month);
+		lastDay=(EditText) this.findViewById(R.id.last_day);
+		cancel.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				//oldorders->allorders
+				if(oldorders.size()!=0)
+				{
+					allorders.clear();
+					for(int i=0;i<oldorders.size();i++)
+					{
+						allorders.add(oldorders.get(i));
+					}
+					adapter.notifyDataSetChanged();
+				}
+				Myorder.this.findViewById(R.id.time_chooser).setVisibility(View.GONE);
+			}
+			
+		});
+		comfirm.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				boolean flag=false;
+				String year1=firstYear.getText().toString();
+				String month1=firstMonth.getText().toString();
+				String day1=firstDay.getText().toString();
+				String year2=lastYear.getText().toString();
+				String month2=lastMonth.getText().toString();
+				String day2=lastDay.getText().toString();
+				if(TextUtils.isEmpty(year1)||TextUtils.isEmpty(month1)||TextUtils.isEmpty(day1)||
+						TextUtils.isEmpty(year2)||TextUtils.isEmpty(month2)||TextUtils.isEmpty(day2))
+				{
+					flag=true;
+				}
+				if(flag)
+				{
+					return;
+				}
+				
+				
+				
+				if(allorders.size()==0)
+				{
+					return ;
+				}
+				else
+				{
+					//allorders->oldorders
+					oldorders.clear();
+					for(int i=0;i<allorders.size();i++)
+					{
+						oldorders.add(allorders.get(i));
+					}
+				}
+				
+				allorders.clear();
+				
+				
+				
+				for(int i=0;i<oldorders.size();i++)
+				{
+					OrderItem item = oldorders.get(i);
+					Calendar cal = Calendar.getInstance();
+					try {
+						cal.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.parse(item.getTime()));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					int year = cal.get(Calendar.YEAR);
+					int month = cal.get(Calendar.MONTH)+1;
+					int day = cal.get(Calendar.DAY_OF_MONTH);
+					if(Integer.parseInt(year1)<=year&&Integer.parseInt(month1)<=month&&Integer.parseInt(day1)<=day&&
+							Integer.parseInt(year2)>=year&&Integer.parseInt(month2)>=month&&Integer.parseInt(day2)>=day)	
+					{
+						allorders.add(item);
+					}
+				}
+				adapter.notifyDataSetChanged();
+			}
+			
+		});
+		this.findViewById(R.id.reding_glass).setOnClickListener(new OnClickListener()
+				{
 
+					@Override
+					public void onClick(View v) {
+						Myorder.this.findViewById(R.id.time_chooser).setVisibility(View.VISIBLE);
+					}
+			
+				});
+	}
+	
 	@SuppressLint("HandlerLeak")
 	public void GetMyOrder() {
 

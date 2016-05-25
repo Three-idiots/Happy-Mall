@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@color/wemall_all_titlebar_back" >
-
+	
         <LinearLayout
             android:id="@+id/title_left_layout_myorder"
             android:layout_width="wrap_content"
@@ -52,15 +52,122 @@
                 android:text="我的订单"
                 android:textColor="@color/white_ffffff"
                 android:textSize="22sp" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:clickable="true"
+                android:id="@+id/reding_glass"
+               	android:src="@drawable/reading_glass"
+                />
         </LinearLayout>
     </RelativeLayout>
     <!-- 以上为Bar布局 -->
-
+	<LinearLayout
+		    android:id="@+id/time_chooser" 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/title_layout_myorder"
+		    android:orientation="vertical"
+		    android:visibility="gone">
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+		    <EditText
+		        android:id="@+id/first_year"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="2016"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="年"/>
+		    <EditText
+		        android:id="@+id/first_month"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="5"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="月"/>
+		    <EditText
+		        android:id="@+id/first_day"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="24"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="日至"/>
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        >
+		    <EditText
+		        android:id="@+id/last_year"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="2016"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="年"/>
+		    <EditText
+		        android:id="@+id/last_month"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="5"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="月"/>
+		    <EditText
+		        android:id="@+id/last_day"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:text="24"
+		        />
+		   
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="日"/>
+		  </LinearLayout>
+		  <LinearLayout 
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:orientation="horizontal"
+		      android:layout_gravity="center">
+		    <Button
+		        android:id="@+id/comfirm"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content"
+		        android:text="确定"/>
+		    <Button
+		        android:id="@+id/cancel"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content"
+		        android:text="取消"/>
+		    </LinearLayout>
+		</LinearLayout>
     <cn.edu.zzu.wemall.myview.XListView
+        android:layout_below="@+id/time_chooser"
         android:id="@+id/listorder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_layout_myorder"
+        android:layout_height="fill_parent"
         android:cacheColorHint="#00000000"
         android:fadingEdge="none"
         android:divider="@null" >
