@@ -15,7 +15,7 @@
         android:paddingTop="5dp"
         android:text="@string/wemall_menu_title"
         android:background="@drawable/wemall_null_to_gray"
-        android:textColor="@color/wemall_menu_item"
+        android:textColor="#fff"
         android:textSize="20sp" />
 
     <include layout="@layout/wemall_itemline" />
