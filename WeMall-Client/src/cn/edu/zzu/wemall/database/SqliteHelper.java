@@ -20,7 +20,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 
-		String his = "create table if not exists "+TABLENAME_FAVOURITE+" (id int,name varchar(20),imgurl varchar(40),describe text)";
+		String his = "create table if not exists "+TABLENAME_FAVOURITE+" (id int,name varchar(20),imgurl varchar(40),describe text,price double,priceno double)";
 		db.execSQL(his);
 	}
 

@@ -29,7 +29,8 @@ public class SqliteProcess {
 	 * 
 	 * 
 	 */
-	public void insert_to_cart(int id, String name, String imgurl, String describe) {
+	public void insert_to_cart(int id, String name, String imgurl, 
+			String describe,double price,double priceno) {
 
 		Cursor cursor = db.query("Favourite", new String[] { "id" }, "id=?",
 				new String[] { id + "" }, null, null, null);
@@ -39,7 +40,10 @@ public class SqliteProcess {
 			values.put("name", name);
 			values.put("imgurl", imgurl);
 			values.put("describe", describe);
+			values.put("price",price);
+			values.put("priceno", priceno);
 			db.insert("Favourite", null, values);
+			
 		} 
 	}
 
@@ -49,7 +53,7 @@ public class SqliteProcess {
 			HashMap<String, Object> data;
 			// 查询的语法，参数1为表名；参数2为表中的列名；参数3为要查询的条件；参数四为对应列的值；该函数返回的是一个游标
 			Cursor cursor = db.query("Favourite", new String[] { "id", "name",
-					"imgurl", "describe" }, null, new String[] {},
+					"imgurl", "describe","price","priceno"}, null, new String[] {},
 					null, null, null);
 			// 遍历每一个记录
 			while (cursor.moveToNext()) {
@@ -59,6 +63,9 @@ public class SqliteProcess {
 				data.put("imgurl",
 						cursor.getString(cursor.getColumnIndex("imgurl")));
 				data.put("describe", cursor.getString(cursor.getColumnIndex("describe")));
+				data.put("price", cursor.getDouble(cursor.getColumnIndex("price")));
+				data.put("priceno", cursor.getDouble(cursor.getColumnIndex("priceno")));
+				
 				order.add(data);
 			}
 			return order;

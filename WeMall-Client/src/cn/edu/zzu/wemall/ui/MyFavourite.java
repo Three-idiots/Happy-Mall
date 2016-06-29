@@ -6,13 +6,16 @@ import java.util.HashMap;
 import cn.edu.zzu.wemall.R;
 import cn.edu.zzu.wemall.adapter.LoveAdapter;
 import cn.edu.zzu.wemall.database.SqliteProcess;
+import cn.edu.zzu.wemall.object.GoodsItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyFavourite extends Activity {
 
@@ -54,6 +57,28 @@ public class MyFavourite extends Activity {
 				dialog.show();
 				return true;
 			}
+		});
+		listview.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			// TODO Auto-generated method stub
+				final GoodsItem goodsItem=new GoodsItem();
+				HashMap<String , Object> item = data.get(arg2);
+				goodsItem.setId((Integer) item.get("id"));
+				goodsItem.setName(item.get("name").toString());
+				goodsItem.setImage(item.get("imgurl").toString());
+				goodsItem.setIntro(item.get("describe").toString());
+				goodsItem.setPrice((Double)item.get("price"));
+				goodsItem.setPriceno((Double)item.get("priceno"));
+				Intent intent = new Intent(MyFavourite.this, ItemDetails.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("t", goodsItem);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+			
 		});
 	}
 }
